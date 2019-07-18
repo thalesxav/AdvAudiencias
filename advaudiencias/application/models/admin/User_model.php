@@ -2,6 +2,7 @@
 	class User_model extends CI_Model{
 
 		public function add_user($data){
+			//var_dump($data);exit;
 			$this->db->insert('ci_users', $data);
 			return true;
 		}
@@ -9,7 +10,7 @@
 		//---------------------------------------------------
 		// get all users for server-side datatable processing (ajax based)
 		public function get_all_users(){
-			$wh =array();
+			/*$wh =array();
 			$SQL ='SELECT * FROM ci_users';
 			$wh[] = " is_admin = 0";
 			if(count($wh)>0)
@@ -20,7 +21,16 @@
 			else
 			{
 				return $this->datatable->LoadJson($SQL);
-			}
+			}*/
+			$this->db->select('
+					*
+					'
+	    	);
+	    	$this->db->from('ci_users');
+			//$this->db->join('ci_users', 'ci_users.id = ci_payments.user_id ', 'Left');
+			$this->db->where('is_admin', '0');
+	    	$query = $this->db->get();					 
+			return $query->result_array();
 		}
 
 

@@ -11,7 +11,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
         <div class="pull-left image">
           <img src="<?= base_url() ?>public/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
-        <div class="pull-left info">
+        <div style="display:none" class="pull-left info">
           <p><?= ucwords($this->session->userdata('name')); ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -19,19 +19,58 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
      
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li id="dashboard" class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        <li id="dashboard" >
+          <a href="<?= base_url('/'); ?>">
+            <i class="fa fa-dashboard"></i> <span>Painel</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li id="dashboard"><a href="<?= base_url('admin/dashboard'); ?>"><i class="fa fa-circle-o"></i> Dashboard</a></li>
-          </ul>
         </li>
       </ul>
-        
+
+      <?php if($this->rbac->check_module_permission('admin_roles')): ?>  
+       <ul class="sidebar-menu">
+        <li id="admin_roles" class="treeview">
+          <a href="<?= base_url('admin/admin_roles'); ?>">
+            <i class="fa fa-lock"></i> <span>Permissões</span>
+
+          </a><!--
+          <ul class="treeview-menu">
+            <li id="admin_roles"><a href="<?= base_url('admin/admin_roles'); ?>"><i class="fa fa-circle-o"></i> Permissões</a></li>
+          </ul>
+          //-->
+        </li>
+      </ul>
+      <?php endif; ?>
+
+      <?php if($this->rbac->check_module_permission('users')): ?>
+      <ul class="sidebar-menu">
+        <li id="users" class="treeview">
+            <a href="<?= base_url('admin/users'); ?>">
+              <i class="fa fa-user"></i> <span>Usuários</span>
+              <span class="pull-right-container">
+                <!--<i class="fa fa-angle-left pull-right"></i>//-->
+              </span>
+            </a>
+            <!--<ul class="treeview-menu">
+              <li id=""><a href="<?= base_url('admin/users'); ?>"><i class="fa fa-circle-o"></i>Users List</a></li>
+            </ul>//-->
+          </li>
+      </ul>
+      <?php endif; ?>
+
+      <?php if($this->rbac->check_module_permission('users')): ?>
+      <ul class="sidebar-menu">
+        <li id="advogados" class="treeview">
+            <a href="<?= base_url('admin/advogados'); ?>">
+              <i class="fa fa-black-tie"></i> <span>Advogados</span>
+              <span class="pull-right-container">
+              </span>
+            </a>
+          </li>
+      </ul>
+      <?php endif; ?>
+        <!--
       <?php if($this->rbac->check_module_permission('admin')): ?>  
        <ul class="sidebar-menu">
         <li id="admin" class="treeview">
@@ -48,39 +87,39 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
           </ul>
         </li>
       </ul>
-      <?php endif; ?>
+      <?php endif; ?>]
+      //-->
         
       <?php if($this->rbac->check_module_permission('admin_roles')): ?>  
        <ul class="sidebar-menu">
         <li id="admin_roles" class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Roles & Permissions</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
+          <a href="<?= base_url('admin/admin_roles'); ?>">
+            <i class="fa fa-calendar-o"></i> <span>Audiências</span>
+
+          </a><!--
           <ul class="treeview-menu">
-            <li id="admin_roles"><a href="<?= base_url('admin/admin_roles'); ?>"><i class="fa fa-circle-o"></i> Roles & Permissions</a></li>
+            <li id="admin_roles"><a href="<?= base_url('admin/admin_roles'); ?>"><i class="fa fa-circle-o"></i> Permissões</a></li>
           </ul>
+          //-->
         </li>
       </ul>
       <?php endif; ?>
 
-      <?php if($this->rbac->check_module_permission('users')): ?>
-      <ul class="sidebar-menu">
-        <li id="users" class="treeview">
-            <a href="#">
-              <i class="fa fa-user"></i> <span>Users</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li id=""><a href="<?= base_url('admin/users'); ?>"><i class="fa fa-circle-o"></i>Users List</a></li>
-            </ul>
-          </li>
+      <?php if($this->rbac->check_module_permission('admin_roles')): ?>  
+       <ul class="sidebar-menu">
+        <li id="admin_roles" class="treeview">
+          <a href="<?= base_url('admin/admin_roles'); ?>">
+            <i class="fa fa-bar-chart"></i> <span>Relatórios</span>
+
+          </a><!--
+          <ul class="treeview-menu">
+            <li id="admin_roles"><a href="<?= base_url('admin/admin_roles'); ?>"><i class="fa fa-circle-o"></i> Permissões</a></li>
+          </ul>
+          //-->
+        </li>
       </ul>
       <?php endif; ?>
+      
 
       <?php if($this->rbac->check_module_permission('example')): ?>
       <ul class="sidebar-menu">

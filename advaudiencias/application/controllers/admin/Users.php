@@ -10,6 +10,10 @@ class Users extends MY_Controller {
 		}
 
 		public function index(){
+			//$data['view'] = 'admin/users/user_list';
+			//$this->load->view('layout', $data);
+
+			$data['users_detail'] = $this->user_model->get_all_users();
 			$data['view'] = 'admin/users/user_list';
 			$this->load->view('layout', $data);
 		}
@@ -55,10 +59,10 @@ class Users extends MY_Controller {
 
 			if($this->input->post('submit')){
 				$this->form_validation->set_rules('username', 'Username', 'trim|required');
-				$this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
-				$this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
+				//$this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
+				//$this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
 				$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required');
-				$this->form_validation->set_rules('mobile_no', 'Number', 'trim|required');
+				//$this->form_validation->set_rules('mobile_no', 'Number', 'trim|required');
 				$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 				if ($this->form_validation->run() == FALSE) {
@@ -66,21 +70,26 @@ class Users extends MY_Controller {
 					$this->load->view('layout', $data);
 				}
 				else{
+					//var_dump($this->input->post('estados[]'));exit;
 					$data = array(
 						'username' => $this->input->post('username'),
-						'firstname' => $this->input->post('firstname'),
-						'lastname' => $this->input->post('lastname'),
+						/*'firstname' => $this->input->post('firstname'),
+						'lastname' => $this->input->post('lastname'),*/
 						'email' => $this->input->post('email'),
-						'mobile_no' => $this->input->post('mobile_no'),
+						//'mobile_no' => $this->input->post('mobile_no'),
 						'address' => $this->input->post('address'),
 						'password' =>  password_hash($this->input->post('password'), PASSWORD_BCRYPT),
 						'created_at' => date('Y-m-d : h:m:s'),
 						'updated_at' => date('Y-m-d : h:m:s'),
+						'acessos' => $this->RetornaAcessos($this->input->post('acesso_advogados'),$this->input->post('acesso_audiencias'),$this->input->post('acesso_apuracao')),
+						'estados' => $this->RetornaEstados($this->input->post('estados[]')),
 					);
+					//var_dump($this->RetornaEstados($this->input->post('estados[]')));exit;
 					$data = $this->security->xss_clean($data);
+					//var_dump($data);exit;
 					$result = $this->user_model->add_user($data);
 					if($result){
-						$this->session->set_flashdata('msg', 'User has been added successfully!');
+						$this->session->set_flashdata('msg', 'Usuário cadastrado com sucesso!');
 						redirect(base_url('admin/users'));
 					}
 				}
@@ -90,6 +99,26 @@ class Users extends MY_Controller {
 				$this->load->view('layout', $data);
 			}
 			
+		}
+
+		public function RetornaAcessos($advogados, $audiencia, $apuracao)
+		{
+			//var_dump($advogados.' '.$audiencia.' '.$apuracao.' ');exit;
+			$retorno = ($advogados == 'on' ? 'Advogados,' : '');
+			$retorno .= ($audiencia == 'on' ? 'Audiências,' : '');
+			$retorno .= ($apuracao == 'on' ? 'Apuração,' : '');
+			
+			return  substr($retorno,0,-1);
+			//exit;
+		}
+
+		public function RetornaEstados($estados)
+		{
+			$retorno = "";
+			foreach($estados as $uf)
+				$retorno .= $uf . ",";
+
+			return  substr($retorno,0,-1);
 		}
 
 		public function edit($id = 0){

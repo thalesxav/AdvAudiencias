@@ -62,8 +62,7 @@
 				<!--main content end-->
 				<!--footer start-->
 				<footer class="main-footer">
-					<strong>Copyright © 2018 <a href="#">Codeglamour</a></strong> All rights
-					reserved.
+					<strong>Copyright © 2019</strong>
 				</footer>
 				<!--footer end-->
 			</section>

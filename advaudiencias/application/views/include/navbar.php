@@ -4,9 +4,9 @@
     <!-- Logo -->
     <a href="<?= base_url('admin');?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Admin</b> LITE</span>
+      <span style="font-size:13px" class="logo-mini"><b>B&T</b>  B&T</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b> LITE</span>
+      <span style="font-size:13px" class="logo-lg"><b>B&T</b> Sociedade de Advogados</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -14,10 +14,10 @@
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-      <div class="navbar-custom-menu">
+      <div style="display:none" class="navbar-custom-menu">
         <ul class="nav navbar-nav">
              <!-- Messages: style can be found in dropdown.less-->
-          <li><a href="https://codecanyon.net/item/admin-lite-powerfull-php-admin-panel/21136710?ref=codeglamour" class="btn-danger"><i class="fa fa-download"></i>&nbsp; Buy Now</a></li>
+<!--          <li><a href="https://codecanyon.net/item/admin-lite-powerfull-php-admin-panel/21136710?ref=codeglamour" class="btn-danger"><i class="fa fa-download"></i>&nbsp; Buy Now</a></li>//-->
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>

@@ -20,7 +20,7 @@
                 
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <div class="login-title">
-                        <h3><span>Admin Lite</span></h3>
+                        <h3><span style="color:black">Adv Audiências</span></h3>
                     </div>
                     <?php if(isset($msg) || validation_errors() !== ''): ?>
                     <div class="alert alert-warning alert-dismissible">
@@ -44,7 +44,7 @@
                     <?php endif; ?>
                     <div class="form-box">
                         <div class="caption">
-                            <h4>Sign in to start your session</h4>
+                            <h4>Informe os dados de acesso</h4>
                         </div>
                         <?php echo form_open(base_url('auth/login'), 'class="login-form" '); ?>
                             <div class="input-group">
@@ -52,11 +52,11 @@
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" >
                                 <div class="row">
                                   <div class="col-xs-12 text-right">
-                                      <p><a href="<?= base_url('auth/forgot_password'); ?>">Forgot password?</a></p>
+                                      <p><a href="<?= base_url('auth/forgot_password'); ?>">Esqueceu seu senha?</a></p>
                                   </div>
                               </div>
                                 <input type="submit" name="submit" id="submit" class="form-control" value="Login">
-                                <p class="text-center"><a href="<?= base_url('auth/register'); ?>">Don't have an account? Sign Up</a></p>
+                                <p class="text-center"><a href="<?= base_url('auth/register'); ?>">Não tem uma conta?<br/>Registre-se e aguarde a aprovação.</a></p>
                             </div>
                         <?php echo form_close(); ?>
                     </div>

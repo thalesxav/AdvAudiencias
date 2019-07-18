@@ -8,7 +8,7 @@
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total Users</span>
+              <span class="info-box-text">Usuários</span>
               <span class="info-box-number"><?= $all_users; ?></span>
             </div>
             <!-- /.info-box-content -->
@@ -21,7 +21,7 @@
             <span class="info-box-icon bg-red"><i class="fa fa-shield"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Active Users</span>
+              <span class="info-box-text">Advogados</span>
               <span class="info-box-number"><?= $active_users; ?></span>
             </div>
             <!-- /.info-box-content -->
@@ -38,7 +38,7 @@
             <span class="info-box-icon bg-green"><i class="fa fa-window-close"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Deactive Users</span>
+              <span class="info-box-text">Audiências</span>
               <span class="info-box-number"><?= $deactive_users; ?></span>
             </div>
             <!-- /.info-box-content -->
