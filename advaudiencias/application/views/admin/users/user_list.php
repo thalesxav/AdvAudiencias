@@ -1,4 +1,10 @@
-  
+<?php
+//var_dump($users_detail);//exit;
+?>  
+ <link rel="stylesheet" href="<?= base_url() ?>public/plugins/datatables/dataTables.bootstrap.css">  
+ <link rel="stylesheet" href="<?= base_url() ?>public/plugins/datatables/jquery.dataTables.min.css">
+ <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
+
  <section class="content">
   <div class="row">
     <div class="col-md-12">
@@ -8,7 +14,7 @@
         </div>
         <div class="col-md-6 text-right">
          <?php if($this->rbac->check_operation_permission('add')): ?>
-          <a href="<?= base_url('admin/users/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Novo Usuários</a>
+          <a href="<?= base_url('admin/users/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Novo Usuário</a>
          <?php endif; ?>
         </div>
         
@@ -20,16 +26,16 @@
     <div class="box-header">
     </div>
     <!-- /.box-header -->
-    <div class="datalist">
-    <table id="example1" class="table table-bordered table-hover">
+    <div class="box-body table-responsive">
+    <table id="example1" class="table table-bordered table-striped ">
         <thead>
         <tr>
           <th width="50">#ID</th>
           <th>Nome</th>
           <th>E-mail</th>
           <th>Acessos</th>
-          <th width="100">Status</th>
-          <th width="120">Action</th>
+          <!--<th width="100">Status</th>//-->
+          <th width="100">Ação</th>
         </tr>
         </thead>
         <tbody>
@@ -39,22 +45,24 @@
             <td><?= $data['username']; ?></td>
             <td><?= $data['email']; ?></td>
             <td>
-              <span class="btn btn-default btn-flat btn-xs">Advogados</span>
-              <span class="btn btn-default btn-flat btn-xs">Audiências</span>
-              <span class="btn btn-default btn-flat btn-xs">Apuração</span>
+              <span class="btn btn-default btn-flat btn-xs" style="<?= (strpos($data['acessos'], '2') !== false) ? "" : "display:none" ?>" >Cadastro de Advogados</span>
+              <span class="btn btn-default btn-flat btn-xs" style="<?= (strpos($data['acessos'], '3') !== false) ? "" : "display:none" ?>">Cadastro de Audiências</span>
+              <span class="btn btn-default btn-flat btn-xs" style="<?= (strpos($data['acessos'], '4') !== false) ? "" : "display:none" ?>">Relatório de Apuração</span>
             </td>
-            <td><input class='tgl tgl-ios tgl_checkbox' 
+            <!--<td><input class='tgl tgl-ios tgl_checkbox' 
                 data-id="<?=$data['id']?>" 
                 id='cb_<?=$data['id']?>' 
                 type='checkbox' <?php echo ($data['id'] == 1)? "checked" : ""; ?> />
                 <label class='tgl-btn' for='cb_<?=$data['id']?>'></label>
-            </td>
-            <td><div class="btn-group pull-right">
-              <a href="<?= base_url('admin/users/view/'.$data['id']); ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
-              <a href="<?= base_url('admin/users/invoice_pdf_download/'.$data['id']); ?>" class="btn btn-primary"><i class="fa fa-download"></i></a>
-              <a href="<?= base_url('admin/users/edit/'.$data['id']); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-              <a href="<?= base_url('admin/users/del/'.$data['id']); ?>" class="btn btn-danger"><i class="fa fa-remove"></i></a>
-            </div></td>
+            </td>//-->
+
+           <td>
+           <!-- div class="btn-group pull-right">//-->
+              <!--<a title="Visualizar" href="<?= base_url('admin/users/view/'.$data['id']); ?>" class="view btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+              <a href="<?= base_url('admin/users/invoice_pdf_download/'.$data['id']); ?>" class="btn btn-primary"><i class="fa fa-download"></i></a>//-->
+              <a title="Editar" href="<?= base_url('admin/users/edit/'.$data['id']); ?>" class="update btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+              <a title="Deletar" href="<?= base_url('admin/users/del/'.$data['id']); ?>" class="delete btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
+            <!--</div>//--></td>
 		      </tr>
           <?php endforeach; ?>
         </tbody>
@@ -63,6 +71,32 @@
     <!-- /.box-body -->
   <!-- /.box -->
 </section>  
+
+<script src="<?= base_url() ?>public/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>public/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+  
+<script>
+  $(function () {
+    $("#example1").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel', 'pdf'/*, 'print'*/
+        ]
+    });
+  });
+</script> 
+<script>
+  $("#invoices").addClass('active');
+
+  
+</script>  
 
 <!-- Modal -->
 <div id="confirm-delete" class="modal fade" role="dialog">
@@ -107,5 +141,6 @@
     });
   });
   </script>
+
   
 

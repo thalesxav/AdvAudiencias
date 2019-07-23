@@ -56,7 +56,7 @@
                                   </div>
                               </div>
                                 <input type="submit" name="submit" id="submit" class="form-control" value="Login">
-                                <p class="text-center"><a href="<?= base_url('auth/register'); ?>">Não tem uma conta?<br/>Registre-se e aguarde a aprovação.</a></p>
+                                
                             </div>
                         <?php echo form_close(); ?>
                     </div>

@@ -6,7 +6,7 @@
           <h4><i class="fa fa-plus"></i> &nbsp; Novo Usuário</h4>
         </div>
         <div class="col-md-6 text-right">
-          <a href="<?= base_url('admin/users'); ?>" class="btn btn-success"><i class="fa fa-list"></i> Voltar para Lista de Usuários</a>
+          <a href="<?= base_url('admin/users'); ?>" class="btn btn-success"><i class="fa fa-list"></i> Voltar</a>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
               </div>
 
               <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">E-mail</label>
+                <label for="email" class="col-sm-2 control-label">E-mail/Login</label>
 
                 <div class="col-sm-9">
                   <input type="email" name="email" class="form-control" id="email" placeholder="">
@@ -57,46 +57,63 @@
                 <label for="address" class="col-sm-2 control-label">Acessos</label>
 
                 <div class="col-sm-9">
-                  <input type="checkbox" name="acesso_advogados"  id="acesso_advogados" >Advogados<br/>
-                  <input type="checkbox" name="acesso_audiencias"  id="acesso_audiencias" >Audiências<br/>
-                  <input type="checkbox" name="acesso_apuracao" id="acesso_apuracao">Apuração<br/>
+                <table class="tg">
+                    <tr>
+                      <th class="tg-0lax">
+                      <input type="checkbox" name="acessos[]"  id="adm" value="1" /> <b>Administrador</b><br/><br/>
+                        <input type="checkbox" class="acessos" name="acessos[]"  id="acesso_advogados" value="2" /> Cadastro de Advogados<br/>
+                        <input type="checkbox" class="acessos" name="acessos[]"  id="acesso_audiencias" value="3" /> Cadastro de Audiências<br/>
+                        <input type="checkbox" class="acessos" name="acessos[]" id="acesso_apuracao" value="4" /> Relatório de Apuração<br/>
+                        
+                      </th>
+                    </tr>
+                  </table>
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="address" class="col-sm-2 control-label">Estados</label>
 
-                <div class="col-sm-9">
-                <input type="checkbox" name="estados[]" value="Acre" />Acre 
-                <input type="checkbox" name="estados[]" value="Alagoas" />Alagoas 
-                <input type="checkbox" name="estados[]" value="Amapá" />Amapá 
-                <input type="checkbox" name="estados[]" value="Amazonas" />Amazonas 
-                <input type="checkbox" name="estados[]" value="Bahia" />Bahia 
-                <input type="checkbox" name="estados[]" value="Ceará" />Ceará 
-                <input type="checkbox" name="estados[]" value="Distrito Federal" />Distrito Federal 
-                <input type="checkbox" name="estados[]" value="Espírito Santo" />Espírito Santo 
-                <input type="checkbox" name="estados[]" value="Goiás" />Goiás 
-                <input type="checkbox" name="estados[]" value="Maranhão" />Maranhão 
-                <input type="checkbox" name="estados[]" value="Mato Grosso" />Mato Grosso 
-                <input type="checkbox" name="estados[]" value="Mato Grosso do Sul" />Mato Grosso do Sul
-                <input type="checkbox" name="estados[]" value="Minas Gerais" />Minas Gerais 
-                <input type="checkbox" name="estados[]" value="Pará" />Pará
-                <input type="checkbox" name="estados[]" value="Paraíba" />Paraíba 
-                <input type="checkbox" name="estados[]" value="Paraná" />Paraná
-                <input type="checkbox" name="estados[]" value="Pernambuco" />Pernambuco
-                <input type="checkbox" name="estados[]" value="Piauí" />Piauí 
-                <input type="checkbox" name="estados[]" value="Rondônia" />Rondônia 
-                <input type="checkbox" name="estados[]" value="Roraima" />Roraima 
-                <input type="checkbox" name="estados[]" value="Rio de Janeiro" />Rio de Janeiro
-                <input type="checkbox" name="estados[]" value="Rio Grande do Sul" />Rio Grande do Sul
-                <input type="checkbox" name="estados[]" value="Rio Grande do Norte" />Rio Grande do Norte
-                <input type="checkbox" name="estados[]" value="Santa Catarina" />Santa Catarina 
-                <input type="checkbox" name="estados[]" value="Sergipe" />Sergipe 
-                <input type="checkbox" name="estados[]" value="São Paulo" />São Paulo
-                <input type="checkbox" name="estados[]" value="Tocantins" />Tocantins 
-                <br/><br/>
 
-                <input type="checkbox" name="acesso_advogados"  id="acesso_advogados" >Selecionar todos Estados 
+                <div class="col-sm-9">
+
+                  <input type="checkbox" name="todos"  id="todos" ><b> Selecionar todos Estados</b><br/><br/>
+
+                  <table class="tg">
+                    <tr>
+                      <th class="tg-0lax">
+                            <input class="estados" type="checkbox" name="estados[]" value="1" /> Acre 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="2" /> Alagoas 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="3" /> Amapá 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="4" /> Amazonas 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="5" /> Bahia 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="6" /> Ceará 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="7" /> Distrito Federal 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="8" /> Espírito Santo 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="9" /> Goiás 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="10" /> Maranhão 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="11" /> Mato Grosso 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="12" /> Mato Grosso do Sul
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="13" /> Minas Gerais 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="14" /> Pará
+                      </th>
+                      <th class="tg-0lax">
+                        <input class="estados"  type="checkbox" name="estados[]" value="15" /> Paraíba 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="16" /> Paraná
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="17" /> Pernambuco
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="18" /> Piauí 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="19" /> Rondônia 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="20" /> Roraima 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="21" /> Rio de Janeiro
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="22" /> Rio Grande do Sul
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="23" /> Rio Grande do Norte
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="24" /> Santa Catarina 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="25" /> Sergipe 
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="26" /> São Paulo
+                        <br/><input class="estados"  type="checkbox" name="estados[]" value="27" /> Tocantins 
+                      </th>
+                    </tr>
+                  </table> 
                 </div>
               </div>
 
@@ -111,5 +128,24 @@
       </div>
     </div>
   </div>  
+
+  <script type="text/javascript">
+
+    $("#todos").click(function () {
+        $(".estados").prop('checked', $(this).prop('checked'));
+    });
+
+    
+    $("#adm").click(function () {
+        $(".acessos").prop('checked', $(this).prop('checked'));
+    });
+
+  </script>
+
+  <style type="text/css">
+
+    th{font-weight:normal;}
+
+  </style>
 
 </section> 
