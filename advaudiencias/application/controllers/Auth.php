@@ -20,6 +20,26 @@ class Auth extends CI_Controller {
 		//--------------------------------------------------------------
 	public function login(){
 		if($this->input->post('submit')){
+
+			//sending welcome email to user
+			$name = "name";
+			//$email_verification_link = base_url('auth/verify/').'/'.$data['token'];
+			$body = "body";//$this->mailer->Tpl_Registration($name, $email_verification_link);
+			$this->load->helper('email_helper');
+			$to = "xavier.thales@gmail.com";//$data['email'];
+			$subject = 'Activate your account';
+			$message =  $body ;
+			$email = sendEmail($to, $subject, $message, $file = '' , $cc = '');
+			//$email = true;
+			if($email){
+				//$this->session->set_flashdata('success', 'Your Account has been made, please verify it by clicking the activation link that has been send to your email.');
+				//redirect(base_url('auth/login'));
+				echo 'Sucesso';
+			}
+			else{
+				echo 'Email Error';
+			}
+			exit;
 			$this->form_validation->set_rules('username', 'Username', 'trim|required');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required');
 

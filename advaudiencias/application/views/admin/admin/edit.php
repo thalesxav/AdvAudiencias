@@ -93,11 +93,13 @@ foreach($admin_roles as $role)
                   </select>
                 </div>
               </div>//-->
-              
+              <?php
+              //var_dump($admin_roles);
+              ?>
               <div class="form-group">
                 <label for="role" class="col-sm-2 control-label">Perfil*</label>
                 <div class="col-sm-9">
-                  <select name="role[]" class="form-control select2" id="select_role" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                  <select name="role[]" class="form-control select2" id="select_role" multiple="multiple" data-placeholder="Selecione" style="width: 100%;">
                     <?php foreach($admin_roles as $role): ?>
                       <?php
                       if (strpos($admin['roles_ids'], $role['admin_role_id']) !== false)/*if($role['admin_role_id'] == $admin['admin_role_id'])*/: ?>

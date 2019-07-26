@@ -27,7 +27,7 @@ class Admin_model extends CI_Model{
 	function get_admin_roles()
 	{
 		$this->db->from('ci_admin_roles');
-		$this->db->where('admin_role_status',1);
+		//$this->db->where('admin_role_status',1);
 		$query=$this->db->get();
 		return $query->result_array();
 	}

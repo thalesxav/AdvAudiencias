@@ -55,12 +55,12 @@ class Admin extends CI_Controller
 
 		if($this->input->post('submit')){
 				$this->form_validation->set_rules('username', 'Username', 'trim|required');
-				$this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
-				$this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
+				//$this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
+				//$this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
 				$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required');
-				$this->form_validation->set_rules('mobile_no', 'Number', 'trim|required');
-				$this->form_validation->set_rules('password', 'Password', 'trim|required');
-				$this->form_validation->set_rules('role', 'Role', 'trim|required');
+				//$this->form_validation->set_rules('mobile_no', 'Number', 'trim|required');
+				//$this->form_validation->set_rules('password', 'Password', 'trim|required');
+				$this->form_validation->set_rules('role[]', 'Role', 'trim|required');
 
 				if ($this->form_validation->run() == FALSE) {
 					$data['view'] = 'admin/admin/add';
@@ -68,12 +68,13 @@ class Admin extends CI_Controller
 				}
 				else{
 					$data = array(
-						'admin_role_id' => $this->input->post('role'),
+						'admin_role_id' => $this->ArrayToStringConcat($this->input->post('role[]')),
+						'estados' => $this->ArrayToStringConcat($this->input->post('estados[]')),
 						'username' => $this->input->post('username'),
-						'firstname' => $this->input->post('firstname'),
-						'lastname' => $this->input->post('lastname'),
+						//'firstname' => $this->input->post('firstname'),
+						//'lastname' => $this->input->post('lastname'),
 						'email' => $this->input->post('email'),
-						'mobile_no' => $this->input->post('mobile_no'),
+						//'mobile_no' => $this->input->post('mobile_no'),
 						'password' =>  password_hash($this->input->post('password'), PASSWORD_BCRYPT),
 						'is_active' => 1,
 						'created_at' => date('Y-m-d : h:m:s'),
@@ -82,7 +83,8 @@ class Admin extends CI_Controller
 					$data = $this->security->xss_clean($data);
 					$result = $this->admin->add_admin($data);
 					if($result){
-						$this->session->set_flashdata('msg', 'Admin has been added successfully!');
+						
+						$this->session->set_flashdata('msg', 'Usuário adicionado com sucesso!');
 						redirect(base_url('admin/admin'));
 					}
 				}
