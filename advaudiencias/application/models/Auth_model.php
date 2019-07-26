@@ -2,21 +2,38 @@
 
 class Auth_model extends CI_Model{
 
-	public function login($data){
-
+	public function login($data)
+	{
+		$this->db->select('admin_role_id');
 		$this->db->from('ci_admin');
-		$this->db->join('ci_admin_roles','ci_admin_roles.admin_role_id = ci_admin.admin_role_id');
-		$this->db->where('ci_admin.username', $data['username']);
+		$this->db->where('email',$data['username']);
+		$query=$this->db->get();
+		$idsArray = $query->row_array();
+		//$IN = implode (",", $idsArray);
+		//var_dump($IN);
+
+		$this->db->select('*, ci_admin.admin_role_id as roles_ids');
+		$this->db->from('ci_admin,ci_admin_roles');
+		$this->db->where_in('ci_admin_roles.admin_role_id', $idsArray);
+		$this->db->where('ci_admin.email', $data['username']);
+
+		//echo $this->db->_compile_select();exit;
 
 		$query = $this->db->get();
+		//echo $this->db->last_query();exit;
+		//var_dump($query);exit;
 		if ($query->num_rows() == 0){
 			return false;
 		}
 		else{
 			//Compare the password attempt with the password we have stored.
 			$result = $query->row_array();
-		    $validPassword = password_verify($data['password'], $result['password']);
+			//var_dump(password_hash($data['password'], PASSWORD_BCRYPT));
+			//var_dump($result['password']);exit;
+			$validPassword = password_verify($data['password'], $result['password']);
+			//var_dump($validPassword);exit;
 		    if($validPassword){
+				//var_dump($query->row_array());//exit;
 		        return $result = $query->row_array();
 		    }
 

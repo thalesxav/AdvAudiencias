@@ -4,6 +4,7 @@ class RBAC
 	private $module_access;
 	function __construct()
 	{
+		
 		$this->obj =& get_instance();
 		$this->obj->module_access = $this->obj->session->userdata('module_access');
 	}
@@ -12,8 +13,9 @@ class RBAC
 	function set_access_in_session()
 	{
 		$this->obj->db->from('module_access');
-		$this->obj->db->where('admin_role_id',$this->obj->session->userdata('admin_role_id'));
+		$this->obj->db->where_in('admin_role_id',explode(',', trim($this->obj->session->userdata('admin_role_id'))));
 		$query=$this->obj->db->get();
+		//echo $this->obj->db->last_query();exit;
 		$data=array();
 		foreach($query->result_array() as $v)
 		{
@@ -34,6 +36,8 @@ class RBAC
 	//--------------------------------------------------------------	
 	function Check_operation_permission($operation)
 	{
+		//var_dump($operation);
+		//var_dump($this->obj->module_access[$this->obj->uri->segment(2)][$operation]);exit;
 		if(isset($this->obj->module_access[$this->obj->uri->segment(2)][$operation])) 
 			return 1;
 		else 
@@ -54,6 +58,7 @@ class RBAC
 	//--------------------------------------------------------------	
 	function check_operation_access()
 	{
+		//var_dump($this->obj->uri->segment(3));
 		if(!$this->check_operation_permission($this->obj->uri->segment(3)))
 		{
 			$back_to =$_SERVER['REQUEST_URI'];

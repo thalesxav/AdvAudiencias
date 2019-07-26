@@ -31,19 +31,22 @@ class Auth extends CI_Controller {
 					'username' => $this->input->post('username'),
 					'password' => $this->input->post('password')
 				);
+				//var_dump($data);exit;
 				$result = $this->auth_model->login($data);
+				//var_dump($result);exit;
 				if($result){
 					if($result['is_verify'] == 0){
-						$this->session->set_flashdata('error', 'Please verify your email address!');
+						$this->session->set_flashdata('error', 'Por favor, verifique seu e-mail e ative sua conta!');
 						redirect(base_url('auth/login'));
 						exit;
 					}
 					if($result['is_active'] == 0){
-						$this->session->set_flashdata('error', 'Account is disabled by Admin!');
+						$this->session->set_flashdata('error', 'Sua conta não está ativa!');
 						redirect(base_url('auth/login'));
 						exit;
 					}
 					if($result['is_admin'] == 1){
+						//var_dump($result);
 						$admin_data = array(
 							'admin_id' => $result['admin_id'],
 							'username' => $result['username'],
@@ -51,13 +54,17 @@ class Auth extends CI_Controller {
 							'admin_role' => $result['admin_role_title'],
 							'is_admin_login' => TRUE
 						);
+						//var_dump($admin_data);
 						$this->session->set_userdata($admin_data);
+
 							$this->rbac->set_access_in_session(); // set access in session
+
+							//exit;
 							redirect(base_url('admin/dashboard'), 'refresh');
 						}
 					}
 					else{
-						$this->session->set_flashdata('error', 'Invalid Username or Password!');
+						$this->session->set_flashdata('error', 'Usuário ou Senha inválidos!');
 						redirect(base_url('auth/login'));
 					}
 				}
@@ -66,7 +73,7 @@ class Auth extends CI_Controller {
 				//echo "teste"; exit;
 				$this->load->view('auth/login');
 			}
-		}	
+		}
 
 		//-------------------------------------------------------------------------
 		public function register(){
@@ -92,7 +99,7 @@ class Auth extends CI_Controller {
 						'password' =>  password_hash($this->input->post('password'), PASSWORD_BCRYPT),
 						'is_active' => 1,
 						'is_verify' => 0,
-						'token' => md5(rand(0,1000)),    
+						'token' => md5(rand(0,1000)),
 						'last_ip' => '',
 						'created_at' => date('Y-m-d : h:m:s'),
 						'updated_at' => date('Y-m-d : h:m:s'),
@@ -111,9 +118,9 @@ class Auth extends CI_Controller {
 						$email = sendEmail($to, $subject, $message, $file = '' , $cc = '');
 						$email = true;
 						if($email){
-							$this->session->set_flashdata('success', 'Your Account has been made, please verify it by clicking the activation link that has been send to your email.');	
+							$this->session->set_flashdata('success', 'Your Account has been made, please verify it by clicking the activation link that has been send to your email.');
 							redirect(base_url('auth/login'));
-						}	
+						}
 						else{
 							echo 'Email Error';
 						}
@@ -126,20 +133,20 @@ class Auth extends CI_Controller {
 			}
 		}
 
-		//----------------------------------------------------------	
+		//----------------------------------------------------------
 		public function verify(){
 			$verification_id = $this->uri->segment(3);
 			$result = $this->auth_model->email_verification($verification_id);
 			if($result){
-				$this->session->set_flashdata('success', 'Your email has been verified, you can now login.');	
+				$this->session->set_flashdata('success', 'Your email has been verified, you can now login.');
 				redirect(base_url('auth/login'));
 			}
 			else{
-				$this->session->set_flashdata('success', 'The url is either invalid or you already have activated your account.');	
+				$this->session->set_flashdata('success', 'The url is either invalid or you already have activated your account.');
 				redirect(base_url('auth/login'));
-			}	
+			}
 		}
-		//--------------------------------------------------		
+		//--------------------------------------------------
 		public function forgot_password(){
 			if($this->input->post('submit')){
 				//checking server side validation
@@ -182,10 +189,10 @@ class Auth extends CI_Controller {
 			}
 			else{
 				$data['title'] = 'Forget Password';
-				$this->load->view('auth/forget_password',$data);	
+				$this->load->view('auth/forget_password',$data);
 			}
 		}
-		//----------------------------------------------------------------		
+		//----------------------------------------------------------------
 		public function reset_password($id=0){
 			// check the activation code in database
 			if($this->input->post('submit')){
@@ -197,7 +204,7 @@ class Auth extends CI_Controller {
 					$data['reset_code'] = $id;
 					$data['title'] = 'Reseat Password';
 					$this->load->view('auth/reset_password',$data);
-				}   
+				}
 				else{
 					$new_password = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
 					$this->auth_model->reset_password($id, $new_password);

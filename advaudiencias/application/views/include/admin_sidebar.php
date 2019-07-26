@@ -42,35 +42,8 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
         </li>
       </ul>
       <?php endif; ?>
-
-      <?php if($this->rbac->check_module_permission('users')): ?>
-      <ul class="sidebar-menu">
-        <li id="users" class="treeview">
-            <a href="<?= base_url('admin/users'); ?>">
-              <i class="fa fa-user"></i> <span>Usuários</span>
-              <span class="pull-right-container">
-                <!--<i class="fa fa-angle-left pull-right"></i>//-->
-              </span>
-            </a>
-            <!--<ul class="treeview-menu">
-              <li id=""><a href="<?= base_url('admin/users'); ?>"><i class="fa fa-circle-o"></i>Users List</a></li>
-            </ul>//-->
-          </li>
-      </ul>
-      <?php endif; ?>
-
-      <?php if($this->rbac->check_module_permission('users')): ?>
-      <ul class="sidebar-menu">
-        <li id="advogados" class="treeview">
-            <a href="<?= base_url('admin/advogados'); ?>">
-              <i class="fa fa-black-tie"></i> <span>Advogados</span>
-              <span class="pull-right-container">
-              </span>
-            </a>
-          </li>
-      </ul>
-      <?php endif; ?>
-        <!--
+      
+        
       <?php if($this->rbac->check_module_permission('admin')): ?>  
        <ul class="sidebar-menu">
         <li id="admin" class="treeview">
@@ -81,16 +54,43 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="admin"><a href="<?= base_url('admin/admin'); ?>"><i class="fa fa-circle-o"></i> Admin List</a></li>
-            <li id=""><a href="<?= base_url('admin/profile'); ?>"><i class="fa fa-circle-o"></i>Admin Profile</a></li>
-            <li id=""><a href="<?= base_url('admin/profile/change_pwd'); ?>"><i class="fa fa-circle-o"></i>Change Password</a></li>
+            <li id="admin"><a href="<?= base_url('admin/admin'); ?>"><i class="fa fa-circle-o"></i> Usuários</a></li>
+            <li id=""><a href="<?= base_url('admin/profile'); ?>"><i class="fa fa-circle-o"></i>Editar Perfil</a></li>
+            <li id=""><a href="<?= base_url('admin/profile/change_pwd'); ?>"><i class="fa fa-circle-o"></i>Mudar senha</a></li>
           </ul>
         </li>
       </ul>
       <?php endif; ?>]
-      //-->
+
+      <?php if($this->rbac->check_module_permission('advogado')): ?>
+      <ul class="sidebar-menu">
+        <li id="advogados" class="treeview">
+            <a href="<?= base_url('admin/advogados'); ?>">
+              <i class="fa fa-black-tie"></i> <span>Advogados</span>
+              <span class="pull-right-container">
+              </span>
+            </a>
+          </li>
+      </ul>
+      <?php endif; ?>
+
+      <?php if($this->rbac->check_module_permission('advogado')): ?>  
+       <ul class="sidebar-menu">
+        <li id="admin_roles" class="treeview">
+          <a href="<?= base_url('admin/admin_roles'); ?>">
+            <i class="fa fa-map-marker"></i> <span>Comarcas</span>
+
+          </a><!--
+          <ul class="treeview-menu">
+            <li id="admin_roles"><a href="<?= base_url('admin/admin_roles'); ?>"><i class="fa fa-circle-o"></i> Permissões</a></li>
+          </ul>
+          //-->
+        </li>
+      </ul>
+      <?php endif; ?>
+     
         
-      <?php if($this->rbac->check_module_permission('admin_roles')): ?>  
+      <?php if($this->rbac->check_module_permission('audiencia')): ?>  
        <ul class="sidebar-menu">
         <li id="admin_roles" class="treeview">
           <a href="<?= base_url('admin/admin_roles'); ?>">
@@ -105,7 +105,9 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
       </ul>
       <?php endif; ?>
 
-      <?php if($this->rbac->check_module_permission('admin_roles')): ?>  
+      
+
+      <?php if($this->rbac->check_module_permission('relatorio')): ?>  
        <ul class="sidebar-menu">
         <li id="admin_roles" class="treeview">
           <a href="<?= base_url('admin/admin_roles'); ?>">
@@ -120,7 +122,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
       </ul>
       <?php endif; ?>
       
-
+<!--
       <?php if($this->rbac->check_module_permission('example')): ?>
       <ul class="sidebar-menu">
         <li id="example" class="treeview">
@@ -336,7 +338,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
           </ul>
         </li>
       </ul>
-
+    //-->
 
     </section>
     <!-- /.sidebar -->

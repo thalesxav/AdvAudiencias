@@ -3,10 +3,10 @@
 	    <div class="col-md-12">
 	      <div class="box box-body">
 	        <div class="col-md-6">
-	          <h4><i class="fa fa-list"></i> &nbsp; Admin Roles & Permissions</h4>
+	          <h4><i class="fa fa-list"></i> &nbsp; Permissões</h4>
 	        </div>
 	        <div class="col-md-6 text-right">
-	          <a href="<?= base_url('admin/admin_roles/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Add New Role</a>
+	          <a href="<?= base_url('admin/admin_roles/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Adicionar</a>
 	        </div>
 	      </div>
 	    </div>
@@ -19,10 +19,9 @@
 				<thead>
 					<tr>
 						<th width="50">ID</th>
-						<th>Admin Role</th>
-						<th width="100">Status</th>
-						<th width="100">Permission</th>
-						<th width="100">Action</th>
+						<th>Nome</th>
+						<th width="100">Permissões</th>
+						<th width="100">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,12 +29,12 @@
 					<tr>
 						<td><?php echo $record['admin_role_id']; ?></td>
 						<td><?php echo $record['admin_role_title']; ?></td>
-						<td><input class='tgl tgl-ios tgl_checkbox' 
+						<!--<td><input class='tgl tgl-ios tgl_checkbox' 
 							data-id="<?php echo $record['admin_role_id']; ?>" 
 							id='cb_<?=$record['admin_role_id']?>' 
 							type='checkbox' <?php echo ($record['admin_role_status']==1)? "checked" : ""; ?> />
 							<label class='tgl-btn' for='cb_<?=$record['admin_role_id']?>'></label>
-						</td>
+						</td>//-->
 						<td>
 							<a href="<?php echo site_url("admin/admin_roles/access/".$record['admin_role_id']); ?>" class="btn btn-info btn-xs mr5" >
 							<i class="fa fa-sliders"></i>

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin_model extends CI_Model{
+class Advogado_model extends CI_Model{
 
 	public function get_user_detail(){
 		$id = $this->session->userdata('admin_id');

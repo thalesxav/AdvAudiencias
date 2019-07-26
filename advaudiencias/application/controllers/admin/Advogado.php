@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller
+class Advogado extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
         $this->load->library('rbac');
-		$this->load->model('admin/admin_model', 'admin');
+		$this->load->model('advogado/advogado_model', 'advogado');
 
 		$this->rbac->check_module_access();
     }
@@ -18,8 +18,8 @@ class Admin extends CI_Controller
 		$this->session->set_userdata('filter_keyword','');
 		$this->session->set_userdata('filter_status','');
 		
-		$data['admin_roles'] = $this->admin->get_admin_roles();
-		$data['view']='admin/admin/index';
+		//$data['admin_roles'] = $this->admin->get_admin_roles();
+		$data['view']='advogado/advogado/index';
 		$this->load->view('layout',$data);
 	}
 

@@ -1,5 +1,6 @@
 <?php
 //var_dump($users_detail);//exit;
+//echo password_hash('123', PASSWORD_BCRYPT);
 ?>  
  <link rel="stylesheet" href="<?= base_url() ?>public/plugins/datatables/dataTables.bootstrap.css">  
  <link rel="stylesheet" href="<?= base_url() ?>public/plugins/datatables/jquery.dataTables.min.css">
@@ -34,7 +35,6 @@
           <th>Nome</th>
           <th>E-mail</th>
           <th>Acessos</th>
-          <!--<th width="100">Status</th>//-->
           <th width="100">Ação</th>
         </tr>
         </thead>
@@ -45,24 +45,15 @@
             <td><?= $data['username']; ?></td>
             <td><?= $data['email']; ?></td>
             <td>
-              <span class="btn btn-default btn-flat btn-xs" style="<?= (strpos($data['acessos'], '2') !== false) ? "" : "display:none" ?>" >Cadastro de Advogados</span>
-              <span class="btn btn-default btn-flat btn-xs" style="<?= (strpos($data['acessos'], '3') !== false) ? "" : "display:none" ?>">Cadastro de Audiências</span>
-              <span class="btn btn-default btn-flat btn-xs" style="<?= (strpos($data['acessos'], '4') !== false) ? "" : "display:none" ?>">Relatório de Apuração</span>
+              <?= (strpos($data['acessos'], '2') !== false) ? '<span class="btn btn-default btn-flat btn-xs" >Cadastro de Advogados</span>' : '' ?>
+              <?= (strpos($data['acessos'], '3') !== false) ? '<span class="btn btn-default btn-flat btn-xs" >Cadastro de Audiências</span>' : '' ?>
+              <?= (strpos($data['acessos'], '4') !== false) ? '<span class="btn btn-default btn-flat btn-xs">Relatório de Apuração</span>' : '' ?>              
             </td>
-            <!--<td><input class='tgl tgl-ios tgl_checkbox' 
-                data-id="<?=$data['id']?>" 
-                id='cb_<?=$data['id']?>' 
-                type='checkbox' <?php echo ($data['id'] == 1)? "checked" : ""; ?> />
-                <label class='tgl-btn' for='cb_<?=$data['id']?>'></label>
-            </td>//-->
 
            <td>
-           <!-- div class="btn-group pull-right">//-->
-              <!--<a title="Visualizar" href="<?= base_url('admin/users/view/'.$data['id']); ?>" class="view btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
-              <a href="<?= base_url('admin/users/invoice_pdf_download/'.$data['id']); ?>" class="btn btn-primary"><i class="fa fa-download"></i></a>//-->
               <a title="Editar" href="<?= base_url('admin/users/edit/'.$data['id']); ?>" class="update btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
               <a title="Deletar" href="<?= base_url('admin/users/del/'.$data['id']); ?>" class="delete btn btn-sm btn-danger"><i class="fa fa-remove"></i></a>
-            <!--</div>//--></td>
+            </td>
 		      </tr>
           <?php endforeach; ?>
         </tbody>

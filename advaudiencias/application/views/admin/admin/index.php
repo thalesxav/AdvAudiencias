@@ -3,10 +3,10 @@
 	    <div class="col-md-12">
 	      <div class="box box-body">
 	        <div class="col-md-6">
-	          <h4><i class="fa fa-list"></i> &nbsp; Admin List</h4>
+	          <h4><i class="fa fa-list"></i> &nbsp; Usuários</h4>
 	        </div>
 	        <div class="col-md-6 text-right">
-	          <a href="<?= base_url('admin/admin/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Add New Admin</a>
+	          <a href="<?= base_url('admin/admin/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Adicionar</a>
 	        </div>
 	        
 	      </div>
@@ -22,14 +22,14 @@
                    <div class="col-sm-3">
                         <div class="form-group">
                             <select name="type" class="form-control" onchange="filter_data()" >
-                                <option value="">All Admin Types</option>
+                                <option value="">Todos</option>
                                 <?php foreach($admin_roles as $admin_role):?>
                                 <option value="<?=$admin_role['admin_role_id']?>"><?=$admin_role['admin_role_title']?></option>
                                 <?php endforeach;?>
                             </select>
                         </div>
                    </div>
-                   <div class="col-sm-2">
+                   <!--<div class="col-sm-2">
                         <div class="form-group">
                             <select name="status" class="form-control" onchange="filter_data()" >
                                 <option value="">All Status</option>
@@ -37,10 +37,10 @@
                                 <option value="0">Inactive</option>
                             </select>
                         </div>
-                   </div>
+                   </div>//-->
                    <div class="col-sm-6">
                         <div class="form-group">
-                            <input type="text" name="keyword" class="form-control"  placeholder="Search from here..." onkeyup="filter_data()" />
+                            <input type="text" name="keyword" class="form-control"  placeholder="Procurar..." onkeyup="filter_data()" />
                         </div>
                    </div>
                 </div>

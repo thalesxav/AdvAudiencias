@@ -222,7 +222,7 @@
                 <img src="<?= base_url() ?>public/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  CodeGlamour
+                  Bem vindo!
                 </p>
               </li>
               <!-- Menu Body -->
@@ -243,10 +243,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="<?= site_url('auth/logout'); ?>" class="btn btn-default btn-flat">Sair</a>
+                  <a href="<?= site_url('auth/logout'); ?>" class="btn btn-default btn-danger"><font color="white">Sair</font></a>
                 </div>
-                <div style="display:none" class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">profile</a>
+                <div class="pull-left">
+                  <a href="<?= site_url('admin/profile'); ?>" class="btn btn-default btn-flat">Perfil</a>
                 </div>
               </li>
             </ul>
@@ -259,4 +259,3 @@
       </div>
     </nav>
   </header>
- 

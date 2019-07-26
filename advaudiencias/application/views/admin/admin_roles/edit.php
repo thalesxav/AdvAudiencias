@@ -3,10 +3,10 @@
 	    <div class="col-md-12">
 	      <div class="box box-body">
 	        <div class="col-md-6">
-	          <h4><i class="fa fa-edit"></i> &nbsp; Edit Role</h4>
+	          <h4><i class="fa fa-edit"></i> &nbsp; Editar Permissão</h4>
 	        </div>
 	        <div class="col-md-6 text-right">
-	        	<a href="#" onclick="window.history.go(-1); return false;" class="btn btn-primary pull-right"><i class="fa fa-reply mr5"></i> Back</a>
+	        	<a href="#" onclick="window.history.go(-1); return false;" class="btn btn-primary pull-right"><i class="fa fa-reply mr5"></i> Voltar</a>
 	        </div>
 	      </div>
 	    </div>
@@ -22,11 +22,11 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Role Name</label>
+                                <label for="exampleInputEmail1">Nome</label>
                                 <input class="form-control" type="text" required="required" name="admin_role_title" value="<?=isset($record['admin_role_title'])?$record['admin_role_title']:''?>">
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <!--<div class="col-sm-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">User Type Status</label>
                                 <div class="radio">
@@ -41,12 +41,12 @@
                                     </label>
                                 </div>
                             </div>  
-                        </div>
+                        </div>//-->
                     </div>
                 </div>
                 <div class="box-footer">
                     <input type="hidden" name="submit" value="submit"  />
-                    <button type="submit" class="btn btn-success pull-right">Submit</button>
+                    <button type="submit" class="btn btn-success pull-right">Atualizar</button>
                 </div>
             <?php echo form_close(); ?>
 		</div>

@@ -3,10 +3,10 @@
 	    <div class="col-md-12">
 	      <div class="box box-body">
 	        <div class="col-md-6">
-	          <h4><i class="fa fa-list"></i> &nbsp; Admin Permission</h4>
+	          <h4><i class="fa fa-list"></i> &nbsp; Permissões</h4>
 	        </div>
 	        <div class="col-md-6 text-right">
-	        	<a href="#" onclick="window.history.go(-1); return false;" class="btn btn-primary pull-right"><i class="fa fa-reply mr5"></i> Back</a>
+	        	<a href="#" onclick="window.history.go(-1); return false;" class="btn btn-primary pull-right"><i class="fa fa-reply mr5"></i> Voltar</a>
 	        </div>
 	      </div>
 	    </div>
@@ -16,7 +16,7 @@
 			<div class="row">
             	<div class="col-sm-12">
                     <h3 class="box-title">
-                        <span class="mr5">Permission Access : </span> 
+                        <span class="mr5">Permissões de acesso: </span> 
 						<?=strtoupper($record['admin_role_title'])?>
                     </h3>
                 </div>
@@ -44,10 +44,10 @@
                                             id='cb_<?=$kk.$k?>' 
                                             <?php if (in_array($module['controller_name'].'/'.$operation, $access)) echo 'checked="checked"';?>
                                             />
-                                            <label class='tgl-btn' for='cb_<?=$kk.$k?>'></label> 
+                                            <label class='tgl-btn' for='cb_<?=($kk.$k)?>'></label> 
                                         </span>
                                         <span class="mt-15 pl-10">
-											<?=ucwords($operation)?>
+											<?=Traducao(ucwords($operation))?>
                                         </span>
                                     </div>
                                 <?php endforeach; ?>
@@ -62,6 +62,22 @@
 	</div>
 </section>
 
+<?php
+
+function Traducao($valor)
+{
+	switch($valor)
+	{
+		case "Add": return "Adicionar";
+		case "View": return "Visualizar";
+		case "Edit": return "Editar";
+		case "Delete": return "Deletar";
+		case "Change_pwd": return "Alterar Senhas";
+		default : return $valor;
+	}
+}
+
+?>
 
 <script>
 $("body").on("change",".tgl_checkbox",function(){

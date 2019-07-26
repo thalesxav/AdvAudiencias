@@ -169,6 +169,41 @@ class Users extends MY_Controller {
 			redirect(base_url('admin/users'));
 		}
 
+		public function change_pwd($id = 0)
+		{
+			if($this->input->post('submit'))
+			{
+				//var_dump($id);exit;
+				$this->form_validation->set_rules('password', 'Password', 'trim|required');
+				$this->form_validation->set_rules('confirm_pwd', 'Password', 'trim|required');
+
+				if ($this->form_validation->run() == FALSE) {
+					$data['user'] = $this->user_model->get_user_by_id($id);
+					$data['view'] = 'admin/users/user_edit';
+					$this->load->view('layout', $data);
+				}
+				else{
+					//var_dump(password_hash($this->input->post('password'), PASSWORD_BCRYPT));exit;
+					$data = array(
+						'password' =>  password_hash($this->input->post('password'), PASSWORD_BCRYPT),
+						'updated_at' => date('Y-m-d : h:m:s'),
+					);
+					$data = $this->security->xss_clean($data);
+					$result = $this->user_model->edit_user($data, $id);
+					if($result){
+						$this->session->set_flashdata('msg', 'Senha atualizada com sucesso!');
+						redirect(base_url('admin/users'));
+					}
+				}
+			}
+			else
+			{
+				$this->rbac->check_operation_access(); // check opration permission
+				$data['user'] = $this->user_model->get_user_by_id($id);
+				$data['view'] = 'admin/users/change_pwd';
+				$this->load->view('layout', $data);
+			}
+		}
 	}
 
 
