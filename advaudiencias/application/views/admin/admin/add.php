@@ -142,7 +142,7 @@
 
               <div class="form-group">
                 <div class="col-md-11">
-                  <input type="submit" name="submit" value="Add New Admin" class="btn btn-info pull-right">
+                  <input type="submit" name="submit" value="Salvar" class="btn btn-info pull-right">
                 </div>
               </div>
             <?php echo form_close(); ?>

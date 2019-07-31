@@ -90,7 +90,7 @@ $("body").on("change",".tgl_checkbox",function(){
 		status : $(this).is(':checked')==true?1:0
 	},
 	function(data){
-		$.notify("Status Changed Successfully", "success");
+		$.notify("Status alterado com sucesso!", "success");
 	});
 });
 </script>

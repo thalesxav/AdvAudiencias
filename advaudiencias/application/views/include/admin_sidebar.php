@@ -1,6 +1,6 @@
-<?php 
-$cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);  
-?>  
+<?php
+$cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
+?>
 
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
@@ -16,7 +16,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
-     
+
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li id="dashboard" >
@@ -28,7 +28,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
         </li>
       </ul>
 
-      <?php if($this->rbac->check_module_permission('admin_roles')): ?>  
+      <?php if($this->rbac->check_module_permission('admin_roles')): ?>
        <ul class="sidebar-menu">
         <li id="admin_roles" class="treeview">
           <a href="<?= base_url('admin/admin_roles'); ?>">
@@ -42,9 +42,9 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
         </li>
       </ul>
       <?php endif; ?>
-      
-        
-      <?php if($this->rbac->check_module_permission('admin')): ?>  
+
+
+      <?php if($this->rbac->check_module_permission('admin')): ?>
        <ul class="sidebar-menu">
         <li id="admin" class="treeview">
           <a href="#">
@@ -54,7 +54,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="admin"><a href="<?= base_url('admin/admin'); ?>"><i class="fa fa-circle-o"></i> Usuários</a></li>
+            <li id="admin"><a href="<?= base_url('admin/admin'); ?>"><i class="fa fa-circle-o"></i>Usuários</a></li>
             <li id=""><a href="<?= base_url('admin/profile'); ?>"><i class="fa fa-circle-o"></i>Editar Perfil</a></li>
             <li id=""><a href="<?= base_url('admin/profile/change_pwd'); ?>"><i class="fa fa-circle-o"></i>Mudar senha</a></li>
           </ul>
@@ -74,7 +74,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
       </ul>
       <?php endif; ?>
 
-      <?php if($this->rbac->check_module_permission('advogado')): ?>  
+      <?php if($this->rbac->check_module_permission('advogado')): ?>
        <ul class="sidebar-menu">
         <li id="admin_roles" class="treeview">
           <a href="<?= base_url('admin/admin_roles'); ?>">
@@ -88,9 +88,9 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
         </li>
       </ul>
       <?php endif; ?>
-     
-        
-      <?php if($this->rbac->check_module_permission('audiencia')): ?>  
+
+
+      <?php if($this->rbac->check_module_permission('audiencia')): ?>
        <ul class="sidebar-menu">
         <li id="admin_roles" class="treeview">
           <a href="<?= base_url('admin/admin_roles'); ?>">
@@ -105,9 +105,9 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
       </ul>
       <?php endif; ?>
 
-      
 
-      <?php if($this->rbac->check_module_permission('relatorio')): ?>  
+
+      <?php if($this->rbac->check_module_permission('apuracao')): ?>
        <ul class="sidebar-menu">
         <li id="admin_roles" class="treeview">
           <a href="<?= base_url('admin/admin_roles'); ?>">
@@ -121,7 +121,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
         </li>
       </ul>
       <?php endif; ?>
-      
+
 <!--
       <?php if($this->rbac->check_module_permission('example')): ?>
       <ul class="sidebar-menu">
@@ -142,8 +142,8 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
           </li>
       </ul>
       <?php endif; ?>
-      
-      <?php if($this->rbac->check_module_permission('invoices')): ?>  
+
+      <?php if($this->rbac->check_module_permission('invoices')): ?>
       <ul class="sidebar-menu">
         <li id="invoices" class="treeview">
             <a href="#">
@@ -159,7 +159,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
           </li>
       </ul>
     <?php endif; ?>
-   
+
     <?php if($this->rbac->check_module_permission('joins')): ?>
       <ul class="sidebar-menu">
         <li id="joins" class="treeview">
@@ -176,8 +176,8 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
           </li>
       </ul>
       <?php endif; ?>
-     
-    <?php if($this->rbac->check_module_permission('export')): ?>    
+
+    <?php if($this->rbac->check_module_permission('export')): ?>
       <ul class="sidebar-menu">
         <li id="export" class="treeview">
             <a href="#">
@@ -190,8 +190,8 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
               <li class=""><a href="<?= base_url('admin/export'); ?>"><i class="fa fa-circle-o"></i> Database Backup </a></li>
             </ul>
           </li>
-      </ul>  
-    <?php endif; ?>  
+      </ul>
+    <?php endif; ?>
 
       <ul class="sidebar-menu">
         <li id="ui" class="treeview">
@@ -211,8 +211,8 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
               <li id="modals"><a href="<?= base_url('admin/ui/modals'); ?>"><i class="fa fa-circle-o"></i> Modals</a></li>
             </ul>
           </li>
-      </ul> 
-      
+      </ul>
+
       <ul class="sidebar-menu">
         <li id="forms" class="treeview">
             <a href="#">
@@ -227,7 +227,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
               <li id="editors"><a href="<?= base_url('admin/forms/editors'); ?>"><i class="fa fa-circle-o"></i> Editors</a></li>
             </ul>
         </li>
-      </ul> 
+      </ul>
 
       <ul class="sidebar-menu">
         <li id="pages" class="treeview">
@@ -268,8 +268,8 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
           </ul>
         </li>
       </ul>
-      
-      <ul class="sidebar-menu">  
+
+      <ul class="sidebar-menu">
         <li id="calender">
           <a href="<?= base_url('admin/calendar'); ?>">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
@@ -280,7 +280,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
           </a>
         </li>
       </ul>
-        
+
       <ul class="sidebar-menu">
         <li id="mailbox" class="treeview">
           <a href="">
@@ -344,7 +344,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
     <!-- /.sidebar -->
   </aside>
 
-  
+
 <script>
   $("#<?= $cur_tab ?>").addClass('active');
 </script>

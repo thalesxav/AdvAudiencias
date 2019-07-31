@@ -27,7 +27,7 @@ class Admin_roles_model extends CI_Model{
 	function insert()
 	{		
 		$this->db->set('admin_role_title',$this->input->post('admin_role_title'));
-		$this->db->set('admin_role_status',$this->input->post('admin_role_status'));
+		$this->db->set('admin_role_status',1);
 		$this->db->set('admin_role_created_on',date('Y-m-d h:i:sa'));
 		$this->db->insert('ci_admin_roles');
 	}

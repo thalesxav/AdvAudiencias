@@ -11,13 +11,13 @@ class Advogado extends CI_Controller
 		$this->rbac->check_module_access();
     }
 
-	//-----------------------------------------------------		
+	//-----------------------------------------------------
 	function index($type='')
 	{
 		$this->session->set_userdata('filter_type',$type);
 		$this->session->set_userdata('filter_keyword','');
 		$this->session->set_userdata('filter_status','');
-		
+
 		//$data['admin_roles'] = $this->admin->get_admin_roles();
 		$data['view']='advogado/advogado/index';
 		$this->load->view('layout',$data);
@@ -31,7 +31,7 @@ class Advogado extends CI_Controller
 		$this->session->set_userdata('filter_keyword',$this->input->post('keyword'));
 	}
 
-	//--------------------------------------------------		
+	//--------------------------------------------------
 	function list_data()
 	{
 		$data['info'] = $this->admin->get_all();
@@ -40,15 +40,15 @@ class Advogado extends CI_Controller
 
 	//-----------------------------------------------------------
 	function change_status()
-	{   
+	{
 		$this->rbac->check_operation_access(); // check opration permission
 
 		$this->admin->change_status();
 	}
-	
+
 	//--------------------------------------------------
 	function add()
-	{	
+	{
 		$this->rbac->check_operation_access(); // check opration permission
 
 		$data['admin_roles']=$this->admin->get_admin_roles();
@@ -82,7 +82,7 @@ class Advogado extends CI_Controller
 					$data = $this->security->xss_clean($data);
 					$result = $this->admin->add_admin($data);
 					if($result){
-						$this->session->set_flashdata('msg', 'Admin has been added successfully!');
+						$this->session->set_flashdata('msg', 'Usuário adicionado com sucesso!');
 						redirect(base_url('admin/admin'));
 					}
 				}
@@ -90,7 +90,7 @@ class Advogado extends CI_Controller
 			else
 			{
 				$data['view']='admin/admin/add';
-				$this->load->view('layout',$data);	
+				$this->load->view('layout',$data);
 			}
 	}
 
@@ -119,7 +119,7 @@ class Advogado extends CI_Controller
 				$this->load->view('layout', $data);
 			}
 			else{
-				
+
 				$data = array(
 					//'admin_role_id' => $this->input->post('role'),
 					'admin_role_id' => $this->ArrayToStringConcat($this->input->post('role[]')),
@@ -149,7 +149,7 @@ class Advogado extends CI_Controller
 			$data['admin'] = $this->admin->get_admin_by_id($id);
 			$data['view'] = 'admin/admin/edit';
 			$this->load->view('layout',$data);
-		}		
+		}
 	}
 
 	public function ArrayToStringConcat($array)
@@ -207,20 +207,20 @@ class Advogado extends CI_Controller
 		$query=$this->db->get();
 		if($query->num_rows() >0)
 			echo 'false';
-		else 
+		else
 	    	echo 'true';
     }
 
     //------------------------------------------------------------
 	function delete($id='')
-	{   
+	{
 		$this->rbac->check_operation_access(); // check opration permission
 
 		$this->admin->delete($id);
-		$this->session->set_flashdata('success','User has been Deleted Successfully.');	
+		$this->session->set_flashdata('success','Usuário deletado com sucesso.');
 		redirect('admin/admin');
 	}
-	
+
 }
 
 ?>

@@ -43,7 +43,7 @@
                     <a href="<?php echo site_url("admin/admin/edit/".$row['admin_id']); ?>" class="btn btn-warning btn-xs mr5" >
                     <i class="fa fa-edit"></i>
                     </a>
-                    <a href="<?php echo site_url("admin/admin/delete/".$row['admin_id']); ?>" onclick="return confirm('are you sure to delete?')" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></a>
+                    <a href="<?php echo site_url("admin/admin/delete/".$row['admin_id']); ?>" onclick="return confirm('Deseja deletar o registro?')" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></a>
                 </td>
             </tr>
             <?php endforeach;?>

@@ -9,8 +9,8 @@ class Auth_model extends CI_Model{
 		$this->db->where('email',$data['username']);
 		$query=$this->db->get();
 		$idsArray = $query->row_array();
-		//$IN = implode (",", $idsArray);
-		//var_dump($IN);
+		$IN = implode (",", $idsArray);
+		var_dump($IN);
 
 		$this->db->select('*, ci_admin.admin_role_id as roles_ids');
 		$this->db->from('ci_admin,ci_admin_roles');
@@ -20,7 +20,8 @@ class Auth_model extends CI_Model{
 		//echo $this->db->_compile_select();exit;
 
 		$query = $this->db->get();
-		//echo $this->db->last_query();exit;
+		//echo $this->db->last_query();
+		//var_dump($result = $query->row_array());exit;
 		//var_dump($query);exit;
 		if ($query->num_rows() == 0){
 			return false;
