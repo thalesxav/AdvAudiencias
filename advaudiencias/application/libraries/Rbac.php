@@ -12,6 +12,7 @@ class RBAC
 	//----------------------------------------------------------------
 	function set_access_in_session()
 	{
+		//var_dump($this->obj->session);exit;
 		$this->obj->db->from('module_access');
 		$this->obj->db->where_in('admin_role_id',explode(',', trim($this->obj->session->userdata('admin_role_id'))));
 		$query=$this->obj->db->get();
@@ -27,6 +28,7 @@ class RBAC
 	//--------------------------------------------------------------	
 	function check_module_permission($module)
 	{
+		//var_dump($this->obj->module_access);exit;
 		if(isset($this->obj->module_access[$module])) 
 			return 1;
 		else 

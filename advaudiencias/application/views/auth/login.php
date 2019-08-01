@@ -20,12 +20,12 @@
                 
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <div class="login-title">
-                        <h3><span style="color:black">Adv Audiências</span></h3>
+                        <h3><span style="color:black">B&T Sociedade de Advogados</span></h3>
                     </div>
                     <?php if(isset($msg) || validation_errors() !== ''): ?>
                     <div class="alert alert-warning alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4><i class="icon fa fa-warning"></i> Alert!</h4>
+                        <h4><i class="icon fa fa-warning"></i> Alerta!</h4>
                         <?= validation_errors();?>
                         <?= isset($msg)? $msg: ''; ?>
                     </div>

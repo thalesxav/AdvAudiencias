@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-          <title><?=isset($title)?$title:'Login - AdminLite' ?></title>
+          <title><?=isset($title)?$title:'Esqueceu a senha' ?></title>
           <!-- Tell the browser to be responsive to screen width -->
           <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
           <!-- Bootstrap 3.3.6 -->
@@ -19,12 +19,12 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <div class="login-title">
-                        <h3><span>Admin Lite</span></h3>
+                        <h3><span style="color:black">B&T Sociedade de Advogados</span></h3>
                     </div>
                     <?php if(validation_errors() !== ''): ?>
                       <div class="alert alert-warning alert-dismissible">
                           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                          <h4><i class="icon fa fa-warning"></i> Alert!</h4>
+                          <h4><i class="icon fa fa-warning"></i> Alerta!</h4>
                           <?= validation_errors();?>
                           <?= isset($msg)? $msg: ''; ?>
                       </div>
@@ -52,9 +52,9 @@
                         </div>
                         <?php echo form_open(base_url('auth/forgot_password'), 'class="login-form" '); ?>
                             <div class="">
-                                <input type="text" name="email" id="email" class="form-control" placeholder="Email Address" >
-                                <input type="submit" name="submit" id="submit" class="form-control" value="Submit">
-                                <p class="text-center"><a href="<?= base_url('auth/login'); ?>">You remember Password? Sign In </a></p>
+                                <input type="text" name="email" id="email" class="form-control" placeholder="E-mail" >
+                                <input type="submit" name="submit" id="submit" class="form-control" value="Enviar">
+                                <p class="text-center"><a href="<?= base_url('auth/login'); ?>">Lembrou a senha? Faça Login </a></p>
                             </div>
                         <?php echo form_close(); ?>
                     </div>

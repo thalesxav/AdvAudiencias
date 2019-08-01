@@ -74,7 +74,7 @@ class Auth extends CI_Controller {
 						$admin_data = array(
 							'admin_id' => $result['admin_id'],
 							'username' => $result['username'],
-							'admin_role_id' => $result['admin_role_id'],
+							'admin_role_id' => $result['roles_ids'],
 							'admin_role' => $result['admin_role_title'],
 							'is_admin_login' => TRUE
 						);
@@ -195,16 +195,16 @@ class Auth extends CI_Controller {
 
 					$this->load->helper('email_helper');
 					$to = $email;
-					$subject = 'Reset your password';
+					$subject = 'Resetar sua senha';
 					$message =  $body ;
 					$email = sendEmail($to, $subject, $message, $file = '' , $cc = '');
 					if($email){
-						$this->session->set_flashdata('success', 'We have sent instructions for resetting your password to your email');
+						$this->session->set_flashdata('success', 'Nós enviamos por email as instruções para resetar sua senha.');
 
 						redirect(base_url('auth/forgot_password'));
 					}
 					else{
-						$this->session->set_flashdata('error', 'There is the problem on your email');
+						$this->session->set_flashdata('error', 'Houve um problema ao enviar o e-mail. Contato o Administrador.');
 						redirect(base_url('auth/forgot_password'));
 					}
 				}
@@ -214,7 +214,7 @@ class Auth extends CI_Controller {
 				}
 			}
 			else{
-				$data['title'] = 'Forget Password';
+				$data['title'] = 'Resetar sua senha';
 				$this->load->view('auth/forget_password',$data);
 			}
 		}

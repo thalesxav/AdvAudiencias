@@ -56,7 +56,7 @@
 <div class="container">
   <div class="content">
     <h2 class="color-white-shadow text-center">Erro 403<br><small>Accesso negado</small></h2>
-    <img src="https://images.unsplash.com/photo-1506202687253-52e1b29d3527?ixlib=rb-0.3.5&s=b43d68ed98b673427669234757d85e56&auto=format&fit=crop&w=300&q=80" width="300" height="140" class="mask">
+    <img src="https://freepngimg.com/thumb/blocked/7-2-blocked-png-file.png" width="320"  >
     <p class="color-white-shadow text-center">Você não tem permissão para fazer esta operação.</p>
     <p class="text-center"><a href="<?= base_url(); ?>">Voltar</a></p>
   </div>

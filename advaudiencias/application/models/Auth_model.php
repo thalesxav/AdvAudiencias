@@ -10,7 +10,7 @@ class Auth_model extends CI_Model{
 		$query=$this->db->get();
 		$idsArray = $query->row_array();
 		$IN = implode (",", $idsArray);
-		var_dump($IN);
+		//var_dump($IN);
 
 		$this->db->select('*, ci_admin.admin_role_id as roles_ids');
 		$this->db->from('ci_admin,ci_admin_roles');

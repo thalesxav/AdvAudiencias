@@ -55,8 +55,9 @@ class Admin_model extends CI_Model{
 	//-----------------------------------------------------
 	function get_all()
 	{
+		$this->db->select('*, ci_admin.admin_role_id as roles_ids');
 		$this->db->from('ci_admin');
-		$this->db->join('ci_admin_roles','ci_admin_roles.admin_role_id=ci_admin.admin_role_id');
+		$this->db->join('ci_admin_roles','ci_admin_roles.admin_role_id IN (select X.admin_role_id from ci_admin X where X.admin_id = ci_admin.admin_id)');
 		
 		if($this->session->userdata('filter_type')!='')
 			$this->db->where('ci_admin.admin_role_id',$this->session->userdata('filter_type'));
@@ -78,6 +79,7 @@ class Admin_model extends CI_Model{
 	$this->db->order_by('ci_admin.admin_id','desc');
 		//$this->db->limit($limit, $offset);
 	$query = $this->db->get();
+	//echo $this->db->last_query();exit;
 	$module = array();
 	if ($query->num_rows() > 0) 
 	{
