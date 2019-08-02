@@ -78,7 +78,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
       <?php if($this->rbac->check_module_permission('advogado')): ?>
       <ul class="sidebar-menu">
         <li id="advogado" class="treeview">
-            <a href="<?= base_url('admin/advogados'); ?>">
+            <a href="<?= base_url('admin/advogado'); ?>">
               <i class="fa fa-black-tie"></i> <span>Advogados</span>
               <span class="pull-right-container">
               </span>

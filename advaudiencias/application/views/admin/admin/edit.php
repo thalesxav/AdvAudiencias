@@ -229,4 +229,7 @@ foreach($admin_roles as $role)
 
 th{font-weight:normal;}
 
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: black;
+}
 </style>

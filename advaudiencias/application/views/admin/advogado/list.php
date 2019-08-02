@@ -10,8 +10,9 @@
         <thead>
             <tr>
                 <th width="50">Código</th>
-                <th>Estado</th>
-                <th>Comarca</th>
+                <th>Nome</th>
+                <th>N. OAB</th>
+                <th>E-mail</th>
                 <th width="120">Ação</th>
             </tr>
         </thead>
@@ -22,16 +23,19 @@
 					<?=$row['codigo']?>
                 </td>
                 <td>
-                    <?=$row['estado']?>
+                    <?=$row['nome']?>
                 </td> 
                 <td>
-					<?=$row['comarca']?>
+					<?=$row['numero_oab']?>
                 </td>
                 <td>
-                    <a href="<?php echo site_url("admin/comarca/edit/".$row['codigo']); ?>" class="btn btn-warning btn-xs mr5" >
+					<?=$row['email']?>
+                </td>
+                <td>
+                    <a href="<?php echo site_url("admin/advogado/edit/".$row['codigo']); ?>" class="btn btn-warning btn-xs mr5" >
                     <i class="fa fa-edit"></i>
                     </a>
-                    <a href="<?php echo site_url("admin/comarca/delete/".$row['codigo']); ?>" onclick="return confirm('Deseja deletar o registro?')" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></a>
+                    <a href="<?php echo site_url("admin/advogado/delete/".$row['codigo']); ?>" onclick="return confirm('Deseja deletar o registro?')" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i></a>
                 </td>
             </tr>
             <?php endforeach;?>

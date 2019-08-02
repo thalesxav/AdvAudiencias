@@ -3,10 +3,10 @@
 	    <div class="col-md-12">
 	      <div class="box box-body">
 	        <div class="col-md-6">
-	          <h4><i class="fa fa-list"></i> &nbsp; Comarcas</h4>
+	          <h4><i class="fa fa-list"></i> &nbsp; Advogados</h4>
 	        </div>
 	        <div class="col-md-6 text-right">
-	          <a href="<?= base_url('admin/comarca/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Adicionar</a>
+	          <a href="<?= base_url('admin/advogado/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Adicionar</a>
 	        </div>
 	        
 	      </div>
@@ -35,21 +35,21 @@
 function filter_data()
 {
 	$('.data_container').html('<div class="text-center"><img src="<?=base_url('theme/common')?>/preloader.gif"/></div>');
-	$.post('<?=base_url('admin/comarca/filterdata')?>',$('.filterdata').serialize(),function(){
-		$('.data_container').load('<?=base_url('admin/comarca/list_data')?>');
+	$.post('<?=base_url('admin/advogado/filterdata')?>',$('.filterdata').serialize(),function(){
+		$('.data_container').load('<?=base_url('admin/advogado/list_data')?>');
 	});
 }
 //------------------------------------------------------------------
 function load_records()
 {
 	$('.data_container').html('<div class="text-center"><img src="<?=base_url('theme/common')?>/preloader.gif"/></div>');
-	$('.data_container').load('<?=base_url('admin/comarca/list_data')?>');
+	$('.data_container').load('<?=base_url('admin/advogado/list_data')?>');
 }
 load_records();
 
 //---------------------------------------------------------------------
 $("body").on("change",".tgl_checkbox",function(){
-	$.post('<?=base_url("admin/comarca/change_status")?>',
+	$.post('<?=base_url("admin/advogado/change_status")?>',
 	{
         '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>',
 		id : $(this).data('id'),

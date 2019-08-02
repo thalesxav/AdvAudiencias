@@ -6,7 +6,9 @@ class Advogado extends CI_Controller
     {
         parent::__construct();
         $this->load->library('rbac');
-		$this->load->model('advogado/advogado_model', 'advogado');
+		$this->load->model('admin/advogado_model', 'advogado');
+		$this->load->model('admin/banco_model', 'banco');
+		$this->load->model('admin/comarca_model', 'comarca');
 
 		$this->rbac->check_module_access();
     }
@@ -18,8 +20,7 @@ class Advogado extends CI_Controller
 		$this->session->set_userdata('filter_keyword','');
 		$this->session->set_userdata('filter_status','');
 
-		//$data['admin_roles'] = $this->admin->get_admin_roles();
-		$data['view']='advogado/advogado/index';
+		$data['view']='admin/advogado/index';
 		$this->load->view('layout',$data);
 	}
 
@@ -34,16 +35,8 @@ class Advogado extends CI_Controller
 	//--------------------------------------------------
 	function list_data()
 	{
-		$data['info'] = $this->admin->get_all();
-		$this->load->view('admin/admin/list',$data);
-	}
-
-	//-----------------------------------------------------------
-	function change_status()
-	{
-		$this->rbac->check_operation_access(); // check opration permission
-
-		$this->admin->change_status();
+		$data['info'] = $this->advogado->get_all();
+		$this->load->view('admin/advogado/list',$data);
 	}
 
 	//--------------------------------------------------
@@ -51,45 +44,61 @@ class Advogado extends CI_Controller
 	{
 		$this->rbac->check_operation_access(); // check opration permission
 
-		$data['admin_roles']=$this->admin->get_admin_roles();
-
 		if($this->input->post('submit')){
-				$this->form_validation->set_rules('username', 'Username', 'trim|required');
-				$this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
-				$this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
-				$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required');
-				$this->form_validation->set_rules('mobile_no', 'Number', 'trim|required');
-				$this->form_validation->set_rules('password', 'Password', 'trim|required');
-				$this->form_validation->set_rules('role', 'Role', 'trim|required');
+
+				$this->form_validation->set_rules('codigo', 'Código', 'trim|required');
+				$this->form_validation->set_rules('nome', 'Nome', 'trim|required');
+				$this->form_validation->set_rules('numero_oab', 'Num. OAB', 'trim|required');
+				$this->form_validation->set_rules('cpf', 'CPF', 'trim|required');
+				$this->form_validation->set_rules('email', 'E-mail', 'trim|valid_email|required');
+				$this->form_validation->set_rules('telefone', 'Telefone', 'trim|required');
+				$this->form_validation->set_rules('banco', 'Banco', 'trim|required');
+				$this->form_validation->set_rules('conta', 'Conta', 'trim|required');
+				$this->form_validation->set_rules('agencia', 'Agência', 'trim|required');
+				//$this->form_validation->set_rules('comarcas', 'Comarcas', 'trim|required');
+				
+                $data['codigo'] = $this->advogado->get_last_id();
 
 				if ($this->form_validation->run() == FALSE) {
-					$data['view'] = 'admin/admin/add';
+					$data['view'] = 'admin/advogado/add';
 					$this->load->view('layout', $data);
 				}
 				else{
 					$data = array(
-						'admin_role_id' => $this->input->post('role'),
-						'username' => $this->input->post('username'),
-						'firstname' => $this->input->post('firstname'),
-						'lastname' => $this->input->post('lastname'),
+						'codigo' => $this->input->post('codigo'),
+						'nome' => $this->input->post('nome'),
+						'numero_oab' => $this->input->post('numero_oab'),
+						'cpf' => $this->input->post('cpf'),
 						'email' => $this->input->post('email'),
-						'mobile_no' => $this->input->post('mobile_no'),
-						'password' =>  password_hash($this->input->post('password'), PASSWORD_BCRYPT),
-						'is_active' => 1,
-						'created_at' => date('Y-m-d : h:m:s'),
-						'updated_at' => date('Y-m-d : h:m:s'),
+						'telefone' => $this->input->post('telefone'),
+						'banco' => $this->input->post('banco'),
+						'conta' => $this->input->post('conta'),
+						'agencia' => $this->input->post('agencia'),
+						'vlr_justica_comum' => $this->input->post('vlr_justica_comum'),
+						'vlr_adv_preposto' => $this->input->post('vlr_adv_preposto'),
+						'vlr_preposto' => $this->input->post('vlr_preposto'),
+						'vlr_procon' => $this->input->post('vlr_procon'),
+						'vlr_trabalhista' => $this->input->post('vlr_trabalhista'),
+						'vlr_outros' => $this->input->post('vlr_outros'),
 					);
 					$data = $this->security->xss_clean($data);
-					$result = $this->admin->add_admin($data);
+					$result = $this->advogado->add_advogado($data);
+
+					$array['codigo_advogado'] = $data['codigo'];
+					$array['comarcas'] = $this->input->post('comarcas');
+					$result = $this->advogado->add_advogado_comarcas($array);
 					if($result){
-						$this->session->set_flashdata('msg', 'Usu�rio adicionado com sucesso!');
-						redirect(base_url('admin/admin'));
+						$this->session->set_flashdata('msg', 'Advogado adicionada com sucesso!');
+						redirect(base_url('admin/advogado'));
 					}
 				}
 			}
 			else
 			{
-				$data['view']='admin/admin/add';
+				$data['codigo'] = $this->advogado->get_last_id();
+				$data['bancos'] = $this->banco->get_all();
+				$data['comarcas'] = $this->comarca->get_all();
+				$data['view']='admin/advogado/add';
 				$this->load->view('layout',$data);
 			}
 	}
@@ -99,126 +108,54 @@ class Advogado extends CI_Controller
 	{
 		$this->rbac->check_operation_access(); // check opration permission
 
-		$data['admin_roles'] = $this->admin->get_admin_roles();
-		//var_dump($data['admin_roles']);exit;
-
 		if($this->input->post('submit')){
 
-			//var_dump($this->input->post('role[]'));exit;
-
-			$this->form_validation->set_rules('username', 'Usuário', 'trim|required');
-			//$this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
-			//$this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
-			$this->form_validation->set_rules('email', 'E-mail', 'trim|valid_email|required');
-			//$this->form_validation->set_rules('mobile_no', 'Number', 'trim|required');
-			$this->form_validation->set_rules('role[]', 'Role', 'trim|required');
+			$this->form_validation->set_rules('codigo', 'Código', 'trim|required');
+            $this->form_validation->set_rules('estado', 'Estado', 'trim|required');
+            $this->form_validation->set_rules('advogado', 'advogado', 'trim|required');
 
 			if ($this->form_validation->run() == FALSE) {
-				$data['admin'] = $this->admin->get_admin_by_id($id);
-				$data['view'] = 'admin/admin/edit';
+				$data['advogado'] = $this->advogado->get_advogado_by_id($id);
+				$data['view'] = 'admin/advogado/edit';
 				$this->load->view('layout', $data);
 			}
 			else{
 
 				$data = array(
-					//'admin_role_id' => $this->input->post('role'),
-					'admin_role_id' => $this->ArrayToStringConcat($this->input->post('role[]')),
-					'username' => $this->input->post('username'),
-					//'firstname' => $this->input->post('firstname'),
-					//'lastname' => $this->input->post('lastname'),
-					'email' => $this->input->post('email'),
-					'estados' => $this->ArrayToStringConcat($this->input->post('estados[]')),
-					//'mobile_no' => $this->input->post('mobile_no'),
-					'is_active' => 1,
-					'updated_at' => date('Y-m-d : h:m:s'),
+					'codigo' => $this->input->post('codigo'),
+                    'estado' => $this->input->post('estado'),
+                    'advogado' => $this->input->post('advogado'),
 				);
 
 				$data = $this->security->xss_clean($data);
-				$result = $this->admin->edit_admin($data, $id);
+				$result = $this->advogado->edit($data, $id);
 
 				if($result){
-					$this->session->set_flashdata('msg', 'Usuário atualizado com sucesso!');
-					redirect(base_url('admin/admin'));
+					$this->session->set_flashdata('msg', 'advogado atualizada com sucesso!');
+					redirect(base_url('admin/advogado'));
 				}
 			}
 		}
 		elseif($id==""){
-			redirect('admin/admin');
+			redirect('admin/advogado');
 		}
 		else{
-			$data['admin'] = $this->admin->get_admin_by_id($id);
-			$data['view'] = 'admin/admin/edit';
+			$data['advogado'] = $this->advogado->get_advogado_by_id($id);
+			$data['bancos'] = $this->banco->get_all();
+			$data['comarcas'] = $this->comarca->get_all();
+			$data['view'] = 'admin/advogado/edit';
 			$this->load->view('layout',$data);
 		}
 	}
-
-	public function ArrayToStringConcat($array)
-	{
-		$retorno = "";
-		foreach($array as $strValue)
-			$retorno .= $strValue . ",";
-
-		return  substr($retorno,0,-1);
-	}
-
-	public function change_pwd($id = 0)
-	{
-		if($this->input->post('submit'))
-		{
-			//var_dump($id);exit;
-			$this->form_validation->set_rules('password', 'Password', 'trim|required');
-			$this->form_validation->set_rules('confirm_pwd', 'Password', 'trim|required');
-
-			if ($this->form_validation->run() == FALSE) {
-				$data['admin'] = $this->admin->get_admin_by_id($id);
-				$data['view'] = 'admin/admin/user_edit';
-				$this->load->view('layout', $data);
-			}
-			else{
-				//var_dump(password_hash($this->input->post('password'), PASSWORD_BCRYPT));exit;
-				$data = array(
-					'password' =>  password_hash($this->input->post('password'), PASSWORD_BCRYPT),
-					'updated_at' => date('Y-m-d : h:m:s'),
-				);
-				$data = $this->security->xss_clean($data);
-				$result = $this->admin->change_pwd($data, $id);
-				if($result){
-					$this->session->set_flashdata('msg', 'Senha atualizada com sucesso!');
-					redirect(base_url('admin/admin'));
-				}
-			}
-		}
-		else
-		{
-			//var_dump($id);
-			$this->rbac->check_operation_access(); // check opration permission
-			$data['admin'] = $this->admin->get_admin_by_id($id);
-			$data['view'] = 'admin/admin/change_pwd';
-			$this->load->view('layout', $data);
-		}
-	}
-
-	//--------------------------------------------------
-	function check_username($id=0)
-    {
-		$this->db->from('admin');
-		$this->db->where('username', $this->input->post('username'));
-		$this->db->where('admin_id !='.$id);
-		$query=$this->db->get();
-		if($query->num_rows() >0)
-			echo 'false';
-		else
-	    	echo 'true';
-    }
 
     //------------------------------------------------------------
 	function delete($id='')
 	{
 		$this->rbac->check_operation_access(); // check opration permission
 
-		$this->admin->delete($id);
-		$this->session->set_flashdata('success','Usu�rio deletado com sucesso.');
-		redirect('admin/admin');
+		$this->advogado->delete($id);
+		$this->session->set_flashdata('success','advogado deletada com sucesso.');
+		redirect('admin/advogado');
 	}
 
 }
