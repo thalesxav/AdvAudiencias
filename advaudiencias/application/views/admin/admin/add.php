@@ -36,7 +36,7 @@
                 <label for="username" class="col-sm-2 control-label">Nome*</label>
 
                 <div class="col-sm-9">
-                  <input type="text" name="username" class="form-control" id="username" placeholder="">
+                  <input value="<?= set_value('username'); ?>" type="text" name="username" class="form-control" id="username" placeholder="">
                 </div>
               </div>
               <!--<div class="form-group">
@@ -59,7 +59,7 @@
                 <label for="email" class="col-sm-2 control-label">E-mail/Login*</label>
 
                 <div class="col-sm-9">
-                  <input type="email" name="email" class="form-control" id="email" placeholder="">
+                  <input value="<?= set_value('email'); ?>" type="email" name="email" class="form-control" id="email" placeholder="">
                 </div>
               </div>
              <!-- <div class="form-group">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-          <title><?=isset($title)?$title:'Login - AdminLite' ?></title>
+          <title><?=isset($title)?$title:'Login - B&T Sociedade de Advogados' ?></title>
           <!-- Tell the browser to be responsive to screen width -->
           <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
           <!-- Bootstrap 3.3.6 -->
@@ -12,12 +12,12 @@
           <link rel="stylesheet" href="<?= base_url() ?>public/dist/css/style.css">
            <!-- jQuery 2.2.3 -->
           <script src="<?= base_url() ?>public/plugins/jQuery/jquery-2.2.3.min.js"></script>
-       
+
     </head>
     <body id="login-form">
         <div class="container">
             <div class="row">
-                
+
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <div class="login-title">
                         <h3><span style="color:black">B&T Sociedade de Advogados</span></h3>

@@ -90,7 +90,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
       <?php if($this->rbac->check_module_permission('audiencia')): ?>
        <ul class="sidebar-menu">
         <li id="audiencia" class="treeview">
-          <a href="<?= base_url('admin/admin_roles'); ?>">
+          <a href="<?= base_url('admin/audiencia'); ?>">
             <i class="fa fa-calendar-o"></i> <span>Audiências</span>
 
           </a><!--

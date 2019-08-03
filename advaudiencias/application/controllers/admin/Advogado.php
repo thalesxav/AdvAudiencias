@@ -60,6 +60,8 @@ class Advogado extends CI_Controller
                 $data['codigo'] = $this->advogado->get_last_id();
 
 				if ($this->form_validation->run() == FALSE) {
+					$data['bancos'] = $this->banco->get_all();
+					$data['comarcas'] = $this->comarca->get_all();
 					$data['view'] = 'admin/advogado/add';
 					$this->load->view('layout', $data);
 				}
@@ -111,11 +113,19 @@ class Advogado extends CI_Controller
 		if($this->input->post('submit')){
 
 			$this->form_validation->set_rules('codigo', 'Código', 'trim|required');
-            $this->form_validation->set_rules('estado', 'Estado', 'trim|required');
-            $this->form_validation->set_rules('advogado', 'advogado', 'trim|required');
+			$this->form_validation->set_rules('nome', 'Nome', 'trim|required');
+			$this->form_validation->set_rules('numero_oab', 'Num. OAB', 'trim|required');
+			$this->form_validation->set_rules('cpf', 'CPF', 'trim|required');
+			$this->form_validation->set_rules('email', 'E-mail', 'trim|valid_email|required');
+			$this->form_validation->set_rules('telefone', 'Telefone', 'trim|required');
+			$this->form_validation->set_rules('banco', 'Banco', 'trim|required');
+			$this->form_validation->set_rules('conta', 'Conta', 'trim|required');
+			$this->form_validation->set_rules('agencia', 'Agência', 'trim|required');
 
 			if ($this->form_validation->run() == FALSE) {
 				$data['advogado'] = $this->advogado->get_advogado_by_id($id);
+				$data['bancos'] = $this->banco->get_all();
+				$data['comarcas'] = $this->comarca->get_all();
 				$data['view'] = 'admin/advogado/edit';
 				$this->load->view('layout', $data);
 			}
@@ -123,15 +133,27 @@ class Advogado extends CI_Controller
 
 				$data = array(
 					'codigo' => $this->input->post('codigo'),
-                    'estado' => $this->input->post('estado'),
-                    'advogado' => $this->input->post('advogado'),
+					'nome' => $this->input->post('nome'),
+					'numero_oab' => $this->input->post('numero_oab'),
+					'cpf' => $this->input->post('cpf'),
+					'email' => $this->input->post('email'),
+					'telefone' => $this->input->post('telefone'),
+					'banco' => $this->input->post('banco'),
+					'conta' => $this->input->post('conta'),
+					'agencia' => $this->input->post('agencia'),
+					'vlr_justica_comum' => $this->input->post('vlr_justica_comum'),
+					'vlr_adv_preposto' => $this->input->post('vlr_adv_preposto'),
+					'vlr_preposto' => $this->input->post('vlr_preposto'),
+					'vlr_procon' => $this->input->post('vlr_procon'),
+					'vlr_trabalhista' => $this->input->post('vlr_trabalhista'),
+					'vlr_outros' => $this->input->post('vlr_outros'),
 				);
 
 				$data = $this->security->xss_clean($data);
 				$result = $this->advogado->edit($data, $id);
 
 				if($result){
-					$this->session->set_flashdata('msg', 'advogado atualizada com sucesso!');
+					$this->session->set_flashdata('msg', 'Advogado atualizada com sucesso!');
 					redirect(base_url('admin/advogado'));
 				}
 			}
@@ -140,10 +162,12 @@ class Advogado extends CI_Controller
 			redirect('admin/advogado');
 		}
 		else{
+			//echo $id;
 			$data['advogado'] = $this->advogado->get_advogado_by_id($id);
 			$data['bancos'] = $this->banco->get_all();
 			$data['comarcas'] = $this->comarca->get_all();
 			$data['view'] = 'admin/advogado/edit';
+			//var_dump($data['advogado']);exit;
 			$this->load->view('layout',$data);
 		}
 	}
@@ -154,7 +178,7 @@ class Advogado extends CI_Controller
 		$this->rbac->check_operation_access(); // check opration permission
 
 		$this->advogado->delete($id);
-		$this->session->set_flashdata('success','advogado deletada com sucesso.');
+		$this->session->set_flashdata('success','Advogado deletada com sucesso.');
 		redirect('admin/advogado');
 	}
 

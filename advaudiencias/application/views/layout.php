@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		  <title><?=isset($title)?$title:'AdminLite PHP Admin Panel' ?></title>
+		  <title><?=isset($title)?$title:'B&T Sociedade de Advogados' ?></title>
 		  <!-- Tell the browser to be responsive to screen width -->
 		  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		  <meta name = "keywords" content = "Admin Panel, Backend Panel, Codeigniter admin panel, codeigniter, user management system" />
@@ -18,13 +18,13 @@
 		  <!-- Datatable style -->
 		  <link rel="stylesheet" href="<?= base_url() ?>public/plugins/datatables/dataTables.bootstrap.css">
 		  <!-- Custom CSS -->
-		  <link rel="stylesheet" href="<?= base_url() ?>public/dist/css/style.css">		
+		  <link rel="stylesheet" href="<?= base_url() ?>public/dist/css/style.css">
 		  <!-- AdminLTE Skins. Choose a skin from the css/skins
 			   folder instead of downloading all of them to reduce the load. -->
 		  <link rel="stylesheet" href="<?= base_url() ?>public/dist/css/skins/skin-green.min.css">
 		  <!-- jQuery 2.2.3 -->
 		  <script src="<?= base_url() ?>public/plugins/jQuery/jquery-2.2.3.min.js"></script>
-		
+
 	</head>
 	<body class="hold-transition skin-green sidebar-mini">
 		<div class="wrapper" style="height: auto;">
@@ -32,7 +32,7 @@
 			    <div class="alert alert-success flash-msg alert-dismissible">
 			      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 			      <h4>Successo!</h4>
-			      <?= $this->session->flashdata('msg'); ?> 
+			      <?= $this->session->flashdata('msg'); ?>
 			    </div>
 			<?php endif; ?>
 
@@ -70,8 +70,8 @@
 			<!-- /.control-sidebar -->
 			<?php include('include/control_sidebar.php'); ?>
 		</div>
-		
-    
+
+
 	<!-- jQuery UI 1.11.4 -->
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -80,7 +80,7 @@
 	</script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="<?= base_url() ?>public/bootstrap/js/bootstrap.min.js"></script>
-	
+
 	<!-- AdminLTE App -->
 	<script src="<?= base_url() ?>public/dist/js/app.min.js"></script>
 

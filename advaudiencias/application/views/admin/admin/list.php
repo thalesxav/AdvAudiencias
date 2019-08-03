@@ -33,6 +33,7 @@
 					<?=$row['email']?>
                 </td>
                 <td>
+                    <?= (strpos($row['roles_ids'], '1') !== false) ? '<span class="btn btn-default btn-flat btn-xs" >Admin</span>' : '' ?>
                     <?= (strpos($row['roles_ids'], '2') !== false) ? '<span class="btn btn-default btn-flat btn-xs" >Cadastro de Advogados</span>' : '' ?>
                     <?= (strpos($row['roles_ids'], '3') !== false) ? '<span class="btn btn-default btn-flat btn-xs" >Cadastro de Audiências</span>' : '' ?>
                     <?= (strpos($row['roles_ids'], '4') !== false) ? '<span class="btn btn-default btn-flat btn-xs">Relatório de Apuração</span>' : '' ?>              

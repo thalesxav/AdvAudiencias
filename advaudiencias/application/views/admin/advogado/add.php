@@ -56,7 +56,7 @@
                 <label for="nome" class="col-sm-2 control-label">Nome</label>
 
                 <div class="col-sm-9">
-                  <input value="" type="text" name="nome" class="form-control" id="nome" placeholder="">
+                  <input value="<?= set_value('noem'); ?>" type="text" name="nome" class="form-control" id="nome" placeholder="">
                 </div>
               </div>
 
@@ -65,7 +65,7 @@
                 <div class="col-lg-4">
                   
                   <div class="input-group">
-                  <input type="text" name="numero_oab" class="form-control" id="numero_oab" placeholder="">
+                  <input value="<?= set_value('numero_oab'); ?>" type="text" name="numero_oab" class="form-control" id="numero_oab" placeholder="">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -73,7 +73,7 @@
                 <label for="cpf" class="col-sm-2 control-label">CPF</label>
                 <div class="col-lg-3">
                   <div class="input-group">
-                  <input type="text" name="cpf" class="form-control" id="cpf" placeholder="">
+                  <input value="<?= set_value('cpf'); ?>" type="text" name="cpf" class="form-control" id="cpf" placeholder="">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -84,7 +84,7 @@
                   <label for="email" class="col-sm-2 control-label">E-mail</label>
 
                   <div class="col-sm-9">
-                  <input type="text" name="email" class="form-control" id="email" placeholder="">
+                  <input value="<?= set_value('email'); ?>"  type="text" name="email" class="form-control" id="email" placeholder="">
                   </div>
               </div>
               
@@ -92,7 +92,7 @@
                   <label for="telefone" class="col-sm-2 control-label">Telefone</label>
 
                   <div class="col-sm-4">
-                  <input type="text" name="telefone" class="form-control" id="telefone" placeholder="">
+                  <input value="<?= set_value('telefone'); ?>" type="text" name="telefone" class="form-control" id="telefone" placeholder="">
                   </div>
               </div>
 
@@ -112,7 +112,7 @@
                 <div class="col-lg-4">
                   
                   <div class="input-group">
-                    <input name="agencia" type="text" class="form-control">
+                    <input value="<?= set_value('agencia'); ?>" name="agencia" type="text" class="form-control">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -120,7 +120,7 @@
                 <label for="conta" class="col-sm-2 control-label">Conta</label>
                 <div class="col-lg-3">
                   <div class="input-group">
-                    <input name="conta" type="text" class="form-control">
+                    <input value="<?= set_value('conta'); ?>" name="conta" type="text" class="form-control">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -144,7 +144,7 @@
                 <div class="col-lg-4">
                   
                   <div class="input-group">
-                    <input name="vlr_justica_comum" type="text" class="form-control">
+                    <input value="<?= set_value('vlr_justica_comum'); ?>" name="vlr_justica_comum" type="text" class="form-control">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -152,7 +152,7 @@
                 <label for="vlr_adv_preposto" class="col-sm-2 control-label">Advogado + Preposto</label>
                 <div class="col-lg-3">
                   <div class="input-group">
-                    <input name="vlr_adv_preposto" type="text" class="form-control">
+                    <input value="<?= set_value('vlr_adv_preposto'); ?>" name="vlr_adv_preposto" type="text" class="form-control">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -163,7 +163,7 @@
                 <div class="col-lg-4">
                   
                   <div class="input-group">
-                    <input name="vlr_preposto" type="text" class="form-control">
+                    <input value="<?= set_value('vlr_preposto'); ?>" name="vlr_preposto" type="text" class="form-control">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -171,7 +171,7 @@
                 <label for="vlr_procon" class="col-sm-2 control-label">Procon</label>
                 <div class="col-lg-3">
                   <div class="input-group">
-                    <input name="vlr_procon" type="text" class="form-control">
+                    <input value="<?= set_value('vlr_procon'); ?>" name="vlr_procon" type="text" class="form-control">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -182,7 +182,7 @@
                 <div class="col-lg-4">
                   
                   <div class="input-group">
-                    <input name="vlr_trabalhista" type="text" class="form-control">
+                    <input value="<?= set_value('vlr_trabalhista'); ?>" name="vlr_trabalhista" type="text" class="form-control">
                   </div>
                   <!-- /input-group -->
                 </div>
@@ -190,7 +190,7 @@
                 <label for="vlr_outros" class="col-sm-2 control-label">Outros</label>
                 <div class="col-lg-3">
                   <div class="input-group">
-                    <input name="vlr_outros" type="text" class="form-control">
+                    <input value="<?= set_value('vlr_outros'); ?>" name="vlr_outros" type="text" class="form-control">
                   </div>
                   <!-- /input-group -->
                 </div>

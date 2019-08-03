@@ -43,12 +43,12 @@
               </div>
             <?php endif; ?>
            
-            <?php echo form_open(base_url('admin/advogado/add'), 'class="form-horizontal"');  ?> 
+            <?php echo form_open(base_url('admin/advogado/edit/'.$advogado['codigo_advogado'] ), 'class="form-horizontal"' );  ?> 
               <div class="form-group">
                 <label for="codigo" class="col-sm-2 control-label">Código</label>
 
                 <div class="col-sm-9">
-                  <input readonly value="<?= $advogado['codigo'] ?>" type="text" name="codigo" class="form-control" id="codigo" placeholder="">
+                  <input readonly value="<?= $advogado['codigo_advogado'] ?>" type="text" name="codigo" class="form-control" id="codigo" placeholder="">
                 </div>
               </div>
 
