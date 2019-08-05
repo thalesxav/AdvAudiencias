@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Audiencia_model extends CI_Model{
+class Apuracao_model extends CI_Model{
 
 	//-----------------------------------------------------
 	function get_audiencia_by_id($id)

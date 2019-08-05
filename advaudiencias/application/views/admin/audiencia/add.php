@@ -310,10 +310,6 @@
 <!-- Page script -->
 <script>
 
-  function AlteraStatus(name)
-  {
-    console.log(name);
-  }
 
   $(function () {
 
@@ -343,5 +339,8 @@
 <style>
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background-color: black;
+}
+.ui-widget-content {
+    z-index: 9999 !important;
 }
 </style>

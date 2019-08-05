@@ -107,7 +107,7 @@ $cur_tab = $this->uri->segment(2)==''?'dashboard': $this->uri->segment(2);
       <?php if($this->rbac->check_module_permission('apuracao')): ?>
        <ul class="sidebar-menu">
         <li id="relatorio" class="treeview">
-          <a href="<?= base_url('admin/admin_roles'); ?>">
+          <a href="<?= base_url('admin/apuracao'); ?>">
             <i class="fa fa-bar-chart"></i> <span>Relatórios</span>
 
           </a><!--
