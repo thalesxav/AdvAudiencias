@@ -145,12 +145,17 @@ $('#data_1').datepicker({
      autoclose: true,
      format: 'dd/mm/yyyy',                
      language: 'pt-BR',
+     clearBtn: true,
+      keepEmptyValues: true,
+      todayHighlight: true
  });
 
  $('#data_2').datepicker({
         autoclose: true,
         format: 'dd/mm/yyyy',                
         language: 'pt-BR',
+        clearBtn: true,
+        keepEmptyValues: true,
     });
   </script>
   <!-- DataTables -->
@@ -171,11 +176,11 @@ $('#data_1').datepicker({
   {
     $('.data_container').html('<div class="text-center"><img src="<?=base_url('theme/common')?>/preloader.gif"/></div>');
     $.post('<?=base_url('admin/apuracao/filterdata')?>',$('.filterdata').serialize(),function(){
-      $('.data_container').load('<?=base_url('admin/audiencia/list_data')?>');
+      $('.data_container').load('<?=base_url('admin/apuracao/list_data')?>');
     });
   }
   
-  $(function () {
+  $( document ).ready(function() {
     $("#example1").DataTable({
         dom: 'Bfrtip',
         buttons: [

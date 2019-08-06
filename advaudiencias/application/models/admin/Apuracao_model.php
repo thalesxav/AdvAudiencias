@@ -19,12 +19,24 @@ class Apuracao_model extends CI_Model{
 		$this->db->join('comarcas', 'comarcas.codigo = audiencias.codigo_comarca', 'Inner');
 		$this->db->join('advogado_comarca', 'advogados.codigo = advogado_comarca.codigo_advogado and comarcas.codigo = advogado_comarca.codigo_comarca', 'Inner');
 		
-		if($this->session->userdata('filter_status')!='')
-			$this->db->where('audiencias.status',$this->session->userdata('filter_status'));
+		if($this->session->userdata('advogados')!='')
+		{
+			foreach($this->session->userdata('advogados') as $k => $v)
+				$this->db->or_where('advogados.codigo', $v);
+		}
+		if($this->session->userdata('user_search_from')!='')
+		{
+			$this->db->where('audiencias.data >= ',$this->session->userdata('user_search_from'));
+		}
+		if($this->session->userdata('user_search_to')!='')
+		{
+			$this->db->where('audiencias.data <= ',$this->session->userdata('user_search_to'));
+		}
 
 		$this->db->order_by('codigo_audiencia	','asc');
 		$query = $this->db->get();
 		//var_dump($query);
+		//echo $this->db->last_query();exit;
 		return $query->result_array();
 	}
 

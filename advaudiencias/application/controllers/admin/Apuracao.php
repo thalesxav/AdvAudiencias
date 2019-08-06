@@ -14,15 +14,23 @@ class Apuracao extends MY_Controller {
         //-----------------------------------------------------
         function index($type='')
         {
-            $this->session->set_userdata('filter_type',$type);
-            $this->session->set_userdata('filter_keyword','');
-            $this->session->set_userdata('filter_status','');
+            $this->session->unset_userdata('advogados');
+			$this->session->unset_userdata('user_search_from');
+			$this->session->unset_userdata('user_search_to');
 			$data['apuracao_detail']=$this->apuracao_model->get_relatorio_por_advogado();
 			$data['advogados'] = $this->advogado->get_all();
 			//var_dump($data['apuracao_detail']);exit;
             $data['view']='admin/apuracao/index';
             $this->load->view('layout',$data);
-        }
+		}
+		
+		//--------------------------------------------------
+		function list_data()
+		{
+			$data['apuracao_detail']=$this->apuracao_model->get_relatorio_por_advogado();
+			//var_dump($data['info']);
+			$this->load->view('admin/apuracao/list',$data);
+		}
 
 		//---------------------------------------------------
 		// Calling Server-side processing View
@@ -97,9 +105,9 @@ class Apuracao extends MY_Controller {
 		}
 
 		//-------------------------------------------------------
-		function search()
+		function filterdata()
 		{
-			$this->session->set_userdata('user_search_type',$this->input->post('user_search_type'));
+			$this->session->set_userdata('advogados',$this->input->post('advogados[]'));
 			$this->session->set_userdata('user_search_from',$this->input->post('user_search_from'));
 			$this->session->set_userdata('user_search_to',$this->input->post('user_search_to'));
 		}
