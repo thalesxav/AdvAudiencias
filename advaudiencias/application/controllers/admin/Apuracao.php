@@ -1,207 +1,218 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Apuracao extends CI_Controller
-{
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->library('rbac');
-		$this->load->model('admin/advogado_model', 'advogado');
-		$this->load->model('admin/apuracao_model', 'apuracao');
-		$this->load->model('admin/comarca_model', 'comarca');
+class Apuracao extends MY_Controller {
 
-		$this->rbac->check_module_access();
-    }
+	public function __construct(){
+		parent::__construct();
+            $this->load->model('admin/apuracao_model', 'apuracao_model');
+            $this->load->model('admin/advogado_model', 'advogado');
+			$this->load->library('pagination'); // loaded codeigniter pagination liberary
+			$this->load->library('datatable'); // loaded my custom 'serverside datatable' library
 
-	//-----------------------------------------------------
-	function index($type='')
-	{
-		$this->session->set_userdata('filter_type',$type);
-		$this->session->set_userdata('filter_keyword','');
-		$this->session->set_userdata('filter_status','');
-        $data['advogados']=$this->advogado->get_all();
-		$data['view']='admin/apuracao/index';
-		$this->load->view('layout',$data);
-	}
-
-	//---------------------------------------------------------
-	function filterdata()
-	{
-		$this->session->set_userdata('filter_type',$this->input->post('type'));
-		$this->session->set_userdata('filter_status',$this->input->post('status'));
-		$this->session->set_userdata('filter_keyword',$this->input->post('keyword'));
-	}
-
-	//--------------------------------------------------
-	function list_data()
-	{
-        $data['info'] = $this->apuracao->get_all();
-        //var_dump($data['info']);
-		$this->load->view('admin/apuracao/list',$data);
-    }
-    
-    function altera_status($id="", $status="")
-    {
-        //$this->rbac->check_operation_access(); // check opration permission
-        //var_dump($id);
-        //var_dump($status);
-
-        //$id =  $this->uri->segment(4);
-        //$status =  $this->uri->segment(5);
-
-        //var_dump($this->uri);
-
-		if($id=="" || $status==""){
-			echo "error";
-		}
-		else{
-            $retorno = $this->apuracao->altera_status($id, $status);
-            echo $retorno;
-		}
-    }
-
-	//--------------------------------------------------
-	function add()
-	{
-		$this->rbac->check_operation_access(); // check opration permission
-
-		if($this->input->post('submit')){
-
-        //var_dump($_REQUEST);
-            $this->form_validation->set_rules('codigo', 'Código', 'trim|required');
-            $this->form_validation->set_rules('data', 'Data', 'trim|required');
-            $this->form_validation->set_rules('hora', 'Hora', 'trim|required');
-            $this->form_validation->set_rules('codigo_comarca', 'Comarca', 'trim|required');
-            $this->form_validation->set_rules('codigo_advogado', 'Advogado', 'trim|required');
-            $this->form_validation->set_rules('processo', 'Processo', 'trim|required');
-            $this->form_validation->set_rules('grupo_cota', 'Grupo/Cota', 'trim|required');
-            $this->form_validation->set_rules('tipo_apuracao', 'Tipo Audiência', 'trim|required');
-            $this->form_validation->set_rules('parte_1', 'Parte 1', 'trim|required');
-            $this->form_validation->set_rules('parte_2', 'AgêncParte 2ia', 'trim|required');
-            $this->form_validation->set_rules('adv_escritorio', 'Advogado Escritório', 'trim|required');
-            
-            $data['codigo'] = $this->apuracao->get_last_id();
-            $data['comarcas'] = $this->comarca->get_all();
-            $data['advogados'] = $this->advogado->get_all();
-
-            if ($this->form_validation->run() == FALSE) {
-                $data['view'] = 'admin/apuracao/add';
-                $this->load->view('layout', $data);
-            }
-            else{
-                $date=date_create($this->input->post('data'));
-
-                $data = array(
-                    'codigo' => $this->input->post('codigo'),
-                    'data' => date_format($date,"Y/m/d"),
-                    'hora' => $this->input->post('hora'),
-                    'codigo_comarca' => $this->input->post('codigo_comarca'),
-                    'codigo_advogado' => $this->input->post('codigo_advogado'),
-                    'processo' => $this->input->post('processo'),
-                    'grupo_cota' => $this->input->post('grupo_cota'),
-                    'tipo_apuracao' => $this->input->post('tipo_apuracao'),
-                    'parte_1' => $this->input->post('parte_1'),
-                    'parte_2' => $this->input->post('parte_2'),
-                    'adv_escritorio' => $this->input->post('adv_escritorio'),
-                    'observacoes' => $this->input->post('observacoes'),
-                    'status' => $this->input->post('status'),
-                );
-                
-                $data = $this->security->xss_clean($data);
-                $result = $this->apuracao->add_apuracao($data);
-
-                if($result){
-                    $this->session->set_flashdata('msg', 'Audiência adicionada com sucesso!');
-                    redirect(base_url('admin/apuracao'));
-                }
-            }
+			$this->rbac->check_module_access();
         }
-        else
+        //-----------------------------------------------------
+        function index($type='')
         {
-            $data['codigo'] = $this->apuracao->get_last_id();
-            $data['comarcas'] = $this->comarca->get_all();
-            $data['advogados'] = $this->advogado->get_all();
-            $data['view']='admin/apuracao/add';
+            $this->session->set_userdata('filter_type',$type);
+            $this->session->set_userdata('filter_keyword','');
+            $this->session->set_userdata('filter_status','');
+			$data['apuracao_detail']=$this->apuracao_model->get_relatorio_por_advogado();
+			$data['advogados'] = $this->advogado->get_all();
+			//var_dump($data['apuracao_detail']);exit;
+            $data['view']='admin/apuracao/index';
             $this->load->view('layout',$data);
         }
-	}
 
-	//--------------------------------------------------
-	function edit($id="")
-	{
-		$this->rbac->check_operation_access(); // check opration permission
+		//---------------------------------------------------
+		// Calling Server-side processing View
+		public function ajax_datatable(){
+			$data['title'] = 'Server-side Datatable';
+			$data['view'] = 'admin/apuracaos/ajax_datatable';
+			$this->load->view('layout', $data);
+		}
+		
+		//---------------------------------------------------
+		// Server-side processing Datatable apuracao
+		public function datatable_json(){				   					   
+			$records = $this->apuracao_model->get_all_users();
+			$data = array();
 
-		if($this->input->post('submit')){
-
-			$this->form_validation->set_rules('codigo', 'Código', 'trim|required');
-            $this->form_validation->set_rules('data', 'Data', 'trim|required');
-            $this->form_validation->set_rules('hora', 'Hora', 'trim|required');
-            $this->form_validation->set_rules('codigo_comarca', 'Comarca', 'trim|required');
-            $this->form_validation->set_rules('codigo_advogado', 'Advogado', 'trim|required');
-            $this->form_validation->set_rules('processo', 'Processo', 'trim|required');
-            $this->form_validation->set_rules('grupo_cota', 'Grupo/Cota', 'trim|required');
-            $this->form_validation->set_rules('tipo_apuracao', 'Tipo Audiência', 'trim|required');
-            $this->form_validation->set_rules('parte_1', 'Parte 1', 'trim|required');
-            $this->form_validation->set_rules('parte_2', 'AgêncParte 2ia', 'trim|required');
-            $this->form_validation->set_rules('adv_escritorio', 'Advogado Escritório', 'trim|required');
-
-			if ($this->form_validation->run() == FALSE) {
-				$data['apuracao'] = $this->apuracao->get_advogado_by_id($id);
-				$data['view'] = 'admin/apuracao/edit';
-				$this->load->view('layout', $data);
+			$i=0;
+			foreach ($records['data']  as $row) 
+			{  
+				$status = ($row['is_active'] == 1)? 'checked': '';
+				$data[]= array(
+					++$i,
+					$row['username'],
+					$row['email'],
+					$row['mobile_no'],
+					date_time($row['created_at']),	
+					'<input type="checkbox" class="tgl-ios" '.$status.'><label for=""></label>'
+				);
 			}
-			else{
+			$records['data']=$data;
+			echo json_encode($records);						   
+		}
 
-				$date=date_create($this->input->post('data'));
+		//---------------------------------------------------	
+		// simple datatable apuracao
+		public function simple_datatable(){
+			$data['all_users'] =  $this->apuracao_model->get_all_simple_users();
+			$data['title'] = 'Simple Datatable';
+			$data['view'] = 'admin/apuracaos/simple_datatable';
+			$this->load->view('layout', $data);
+		}
 
+
+		//---------------------------------------------------
+		// Pagination apuracao
+		public function pagination(){
+			$count = $this->apuracao_model->count_all_users();
+			$per_page_record = 10;
+			$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+			$url= base_url("admin/apuracao/pagination/");
+
+			$config = $this->functions->pagination_config($url,$count,$per_page_record);
+			$config['uri_segment'] = 4;		
+			$this->pagination->initialize($config);
+
+			$data['all_users']=$this->apuracao_model->get_all_users_for_pagination($per_page_record,$page);
+
+			$data['title'] = 'Pagination apuracao';
+			$data['view'] = 'admin/apuracaos/pagination';
+			$this->load->view('layout', $data);
+		}
+		
+		//---------------------------------------------------
+		// Advanced Search apuracao
+		public function advance_search(){
+			$this->session->unset_userdata('user_search_type');
+			$this->session->unset_userdata('user_search_from');
+			$this->session->unset_userdata('user_search_to');
+
+			$data['title'] = 'Advanced Search with Datatable';
+			$data['view'] = 'admin/apuracaos/advance_search';
+			$this->load->view('layout', $data);
+		}
+
+		//-------------------------------------------------------
+		function search()
+		{
+			$this->session->set_userdata('user_search_type',$this->input->post('user_search_type'));
+			$this->session->set_userdata('user_search_from',$this->input->post('user_search_from'));
+			$this->session->set_userdata('user_search_to',$this->input->post('user_search_to'));
+		}
+
+		//---------------------------------------------------
+		// Server-side processing Datatable apuracao with Advance Search
+        public function advance_datatable_json()
+        {		
+            var_dump($_REQUEST);exit;
+            if($this->input->get('user_search_from'))
+            {
                 $data = array(
-                    'codigo' => $this->input->post('codigo'),
-                    'data' => date_format($date,"Y/m/d"),
-                    'hora' => $this->input->post('hora'),
-                    'codigo_comarca' => $this->input->post('codigo_comarca'),
-                    'codigo_advogado' => $this->input->post('codigo_advogado'),
-                    'processo' => $this->input->post('processo'),
-                    'grupo_cota' => $this->input->post('grupo_cota'),
-                    'tipo_apuracao' => $this->input->post('tipo_apuracao'),
-                    'parte_1' => $this->input->post('parte_1'),
-                    'parte_2' => $this->input->post('parte_2'),
-                    'adv_escritorio' => $this->input->post('adv_escritorio'),
-                    'observacoes' => $this->input->post('observacoes'),
-                    'status' => $this->input->post('status'),
+					'advogados' => $this->input->post('advogados'),
+					'user_search_from' => $this->input->post('user_search_from'),
+					'user_search_to' => $this->input->post('user_search_to'),
                 );
 
-				$data = $this->security->xss_clean($data);
-				$result = $this->apuracao->edit($data, $id);
+                var_dump($data);exit;
+                		   					   
+                $records = $this->apuracao_model->get_relatorio_por_advogado();
+                $data = array();
+                $i=0;
+                foreach ($records['data']  as $row) 
+                {  
+                    $status = ($row['is_active'] == 1)? 'checked': '';
+                    $data[]= array(
+                        ++$i,
+                        $row['username'],
+                        $row['email'],
+                        $row['mobile_no'],
+                        date_time($row['created_at']),	
+                        '<input type="checkbox" class="tgl-ios" '.$status.'><label for=""></label>'
+                    );
+                }
+                $records['data']=$data;
+                echo json_encode($records);	
+            }					   
+		}
 
-				if($result){
-					$this->session->set_flashdata('msg', 'Audiência atualizada com sucesso!');
-					redirect(base_url('admin/apuracao'));
+		//---------------------------------------------------
+		// File Upload
+		public function file_upload(){
+			if($this->input->post('submit')){
+				$config = array(
+					'upload_path' => "./uploads/",
+					'allowed_types' => "gif|jpg|png|jpeg|pdf",
+					'overwrite' => TRUE,
+					'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+					'max_height' => "1200",
+					'max_width' => "1900"
+				);
+				$this->load->library('upload', $config);
+				if($this->upload->do_upload())
+				{
+					$data = array('upload_data' => $this->upload->data());
+					$data['view'] = 'admin/apuracaos/file_upload';
+					$this->load->view('layout', $data);
+				}
+				else
+				{
+					$data['error'] = array('error' => $this->upload->display_errors());
+					$data['view'] = 'admin/apuracaos/file_upload';
+					$this->load->view('layout', $data);
 				}
 			}
+			else{
+				$data['title'] = 'File Upload';
+				$data['view'] = 'admin/apuracaos/file_upload';
+				$this->load->view('layout', $data);
+			}
 		}
-		elseif($id==""){
-			redirect('admin/apuracao');
+
+		//---------------------------------------------------
+		// Multiple File Upload
+		public function multi_file_upload(){
 		}
-		else{
-            $data['apuracao'] = $this->apuracao->get_apuracao_by_id($id)[0];
-            $data['comarcas'] = $this->comarca->get_all();
-            $data['advogados'] = $this->advogado->get_all();
-			$data['comarcas'] = $this->comarca->get_all();
-			$data['view'] = 'admin/apuracao/edit';
-			$this->load->view('layout',$data);
+
+		//---------------------------------------------------------------
+		//  Export Users PDF 
+		public function create_users_pdf(){
+			$this->load->helper('pdf_helper'); // loaded pdf helper
+			$data['all_users'] = $this->apuracao_model->get_all_simple_users();
+			$this->load->view('admin/apuracaos/users_pdf', $data);
 		}
+
+
+		//---------------------------------------------------------------	
+		// Export data in CSV format 
+		public function export_csv(){ 
+		   // file name 
+			$filename = 'users_'.date('Y-m-d').'.csv'; 
+			header("Content-Description: File Transfer"); 
+			header("Content-Disposition: attachment; filename=$filename"); 
+			header("Content-Type: application/csv; ");
+
+		   // get data 
+			$user_data = $this->apuracao_model->get_users_for_csv();
+
+		   // file creation 
+			$file = fopen('php://output', 'w');
+
+			$header = array("ID", "Username", "First Name", "Last Name", "Email", "Mobile_no", "Created Date"); 
+			fputcsv($file, $header);
+			foreach ($user_data as $key=>$line){ 
+				fputcsv($file,$line); 
+			}
+			fclose($file); 
+			exit; 
+		}
+
+
+
 	}
 
-    //------------------------------------------------------------
-	function delete($id='')
-	{
-		$this->rbac->check_operation_access(); // check opration permission
 
-		$this->apuracao->delete($id);
-		$this->session->set_flashdata('success','apuracao deletada com sucesso.');
-		redirect('admin/apuracao');
-	}
-
-}
-
-?>
+	?>

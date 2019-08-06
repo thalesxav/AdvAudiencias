@@ -28,7 +28,7 @@ ob_start();
 */
 
 $url = "http://".$_SERVER['HTTP_HOST']. str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-$url = "http://localhost/advaudiencias/advaudiencias/";
+$url = "http://localhost:8080/advaudiencias/advaudiencias/";
 
 $config['base_url'] = $url;
 

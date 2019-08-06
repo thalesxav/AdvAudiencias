@@ -3,19 +3,29 @@
 class Apuracao_model extends CI_Model{
 
 	//-----------------------------------------------------
-	function get_audiencia_by_id($id)
+	function get_relatorio_por_advogado()
 	{
-		$this->db->from('audiencias');
-		//$this->db->join('audiencia_comarcas','audiencia_comarcas.codigo_audiencia IN (select X.admin_role_id from audiencia_comarcas X where X.admin_id = ci_admin.admin_id)');
-		//$this->db->join('audiencia_comarca', 'audiencias.codigo = audiencia_comarca.codigo_audiencia ', 'Inner');
-		//$this->db->join('comarcas', 'comarcas.codigo = audiencia_comarca.codigo_comarca ', 'Inner');
+		/*
+		select audiencias.codigo as codigo_audiencia, audiencias.data, audiencias.hora, comarcas.estado, advogados.nome, audiencias.processo, audiencias.tipo_audiencia, advogados.vlr_justica_comum, advogados.vlr_adv_preposto, advogados.vlr_preposto, advogados.vlr_procon, advogados.vlr_trabalhista, advogados.vlr_outros, advogados.banco, advogados.agencia, advogados.conta
+		FROM audiencias
+		INNER JOIN advogados on (audiencias.codigo_advogado = advogados.codigo)
+		INNER join comarcas on (audiencias.codigo_comarca = comarcas.codigo)
+		INNER join advogado_comarca on (advogados.codigo = advogado_comarca.codigo_advogado and comarcas.codigo = advogado_comarca.codigo_comarca)
+		where advogados.codigo = '1'
+		*/
+		$this->db->select('audiencias.codigo as codigo_audiencia, audiencias.data, audiencias.hora, comarcas.estado, advogados.nome, audiencias.processo, audiencias.tipo_audiencia, advogados.vlr_justica_comum, advogados.vlr_adv_preposto, advogados.vlr_preposto, advogados.vlr_procon, advogados.vlr_trabalhista, advogados.vlr_outros, advogados.banco, advogados.agencia, advogados.conta, advogados.codigo as codigo_advogado');
+        $this->db->from('audiencias');
+		$this->db->join('advogados', 'advogados.codigo = audiencias.codigo_advogado', 'Inner');
+		$this->db->join('comarcas', 'comarcas.codigo = audiencias.codigo_comarca', 'Inner');
+		$this->db->join('advogado_comarca', 'advogados.codigo = advogado_comarca.codigo_advogado and comarcas.codigo = advogado_comarca.codigo_comarca', 'Inner');
 		
-		$this->db->where('audiencias.codigo',$id);
-		$query=$this->db->get();
+		if($this->session->userdata('filter_status')!='')
+			$this->db->where('audiencias.status',$this->session->userdata('filter_status'));
+
+		$this->db->order_by('codigo_audiencia	','asc');
+		$query = $this->db->get();
+		//var_dump($query);
 		return $query->result_array();
-		//echo $this->db->last_query();exit;
-		//var_dump($query->result_array());exit;
-		//return $query->row_array();
 	}
 
 	//-----------------------------------------------------
