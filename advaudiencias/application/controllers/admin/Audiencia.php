@@ -82,7 +82,7 @@ class Audiencia extends CI_Controller
             
             $data['codigo'] = $this->audiencia->get_last_id();
             $data['comarcas'] = $this->comarca->get_all();
-            $data['advogados'] = $this->advogado->get_all();
+            //$data['advogados'] = $this->advogado->get_all();
 
             if ($this->form_validation->run() == FALSE) {
                 $data['view'] = 'admin/audiencia/add';
@@ -120,7 +120,7 @@ class Audiencia extends CI_Controller
         {
             $data['codigo'] = $this->audiencia->get_last_id();
             $data['comarcas'] = $this->comarca->get_all();
-            $data['advogados'] = $this->advogado->get_all();
+            //$data['advogados'] = $this->advogado->get_all();
             $data['view']='admin/audiencia/add';
             $this->load->view('layout',$data);
         }
@@ -146,7 +146,9 @@ class Audiencia extends CI_Controller
             $this->form_validation->set_rules('adv_escritorio', 'Advogado Escritório', 'trim|required');
 
 			if ($this->form_validation->run() == FALSE) {
-				$data['audiencia'] = $this->audiencia->get_advogado_by_id($id);
+                $data['audiencia'] = $this->audiencia->get_audiencia_by_id($id)[0];
+                $data['comarcas'] = $this->comarca->get_all();
+                $data['advogados'] = $this->advogado->get_all();
 				$data['view'] = 'admin/audiencia/edit';
 				$this->load->view('layout', $data);
 			}
@@ -186,6 +188,7 @@ class Audiencia extends CI_Controller
             $data['audiencia'] = $this->audiencia->get_audiencia_by_id($id)[0];
             $data['comarcas'] = $this->comarca->get_all();
             $data['advogados'] = $this->advogado->get_all();
+            //var_dump($data['advogados']);exit;
 			$data['comarcas'] = $this->comarca->get_all();
 			$data['view'] = 'admin/audiencia/edit';
 			$this->load->view('layout',$data);

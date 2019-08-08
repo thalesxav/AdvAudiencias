@@ -77,7 +77,7 @@
               <div class="form-group">
                 <label for="codigo_comarca" class="col-sm-2 control-label">Comarca</label>
                 <div class="col-sm-9">
-                <select name="codigo_comarca" class="form-control select2" id="codigo_comarca" data-placeholder="Selecione" style="width: 100%;">
+                <select onchange="BuscaAdvogados(this.value)" name="codigo_comarca" class="form-control select2" id="codigo_comarca" data-placeholder="Selecione" style="width: 100%;">
                     <?php foreach($comarcas as $role): ?>
                       <option value="<?= $role['codigo']; ?>"><?= $role['estado']; ?> - <?= $role['comarca']; ?></option>
                     <?php endforeach; ?>
@@ -89,9 +89,7 @@
                 <label for="banco" class="col-sm-2 control-label">Advogado</label>
                 <div class="col-sm-9">
                 <select name="codigo_advogado" class="form-control select2" id="codigo_advogado" data-placeholder="Selecione" style="width: 100%;">
-                    <?php foreach($advogados as $role): ?>
-                      <option value="<?= $role['codigo']; ?>"><?= $role['nome']; ?> | OAB(<?= $role['numero_oab']; ?>)</option>
-                    <?php endforeach; ?>
+                    <option value="">Selecione a Comarca</option>
                   </select>
                 </div>
               </div>              
@@ -180,107 +178,7 @@
                   <option value="8">Arquivado</option>
                 </select>
                 </div>
-              </div> <!--
-
-              <div class="form-group">
-                <label for="audiencia_cadastrada" class="col-sm-2 control-label">Audiência Cadastrada</label>
-                <div class="col-lg-2">
-                  
-                  <div class="input-group">
-                  <input name="audiencia_cadastrada" class='tgl tgl-ios tgl_checkbox' 
-                    data-id="audiencia_cadastrada" 
-                    id='cb_audiencia_cadastrada' 
-                    type='checkbox' />
-                    <label class="tgl-btn" for="cb_audiencia_cadastrada"></label>
-                  </div>
-                </div>
-
-                <label for="advogado_confirmado" class="col-sm-2 control-label">Advogado Confirmado</label>
-                <div class="col-lg-2">
-                  <div class="input-group">
-                    <input name="advogado_confirmado" class='tgl tgl-ios tgl_checkbox' 
-                    data-id="advogado_confirmado" 
-                    id='cb_advogado_confirmado' 
-                    type='checkbox' />
-                    <label class="tgl-btn" for="cb_advogado_confirmado"></label>
-                  </div>
-                </div>
-
-                <label for="defesa_elaborada" class="col-sm-2 control-label">Defesa Elaborada</label>
-                <div class="col-lg-2">
-                  
-                  <div class="input-group">
-                  <input name="defesa_elaborada" class='tgl tgl-ios tgl_checkbox' 
-                    data-id="defesa_elaborada" 
-                    id='cb_defesa_elaborada' 
-                    type='checkbox' />
-                    <label class="tgl-btn" for="cb_defesa_elaborada"></label>
-                  </div>
-                </div>
               </div>
-              <br/><br/><br/>
-              <div class="form-group">
-                <label for="protocaldo" class="col-sm-2 control-label">Protocolado</label>
-                <div class="col-lg-2">
-                  
-                  <div class="input-group">
-                  <input name="protocaldo" class='tgl tgl-ios tgl_checkbox' 
-                    data-id="protocaldo" 
-                    id='cb_protocaldo' 
-                    type='checkbox' />
-                    <label class="tgl-btn" for="cb_protocaldo"></label>
-                  </div>
-                </div>
-                
-                <label for="enviado_correspondente" class="col-sm-2 control-label">Enviado Correspondente</label>
-                <div class="col-lg-2">
-                  <div class="input-group">
-                    <input name="enviado_correspondente" class='tgl tgl-ios tgl_checkbox' 
-                    data-id="enviado_correspondente" 
-                    id='cb_enviado_correspondente' 
-                    type='checkbox' />
-                    <label class="tgl-btn" for="cb_enviado_correspondente" onclcik="AlteraStatus('cb_enviado_correspondente')"></label>
-                  </div>
-                </div>
-
-                <label for="ata_recebida" class="col-sm-2 control-label">Ata Recebida</label>
-                <div class="col-lg-2">
-                  
-                  <div class="input-group">
-                  <input name="ata_recebida" class='tgl tgl-ios tgl_checkbox' 
-                    data-id="ata_recebida" 
-                    id='cb_ata_recebida' 
-                    type='checkbox' />
-                    <label class="tgl-btn" for="cb_ata_recebida"></label>
-                  </div>
-                </div>
-              </div>
-              <br/><br/><br/>
-              <div class="form-group">
-                <label for="pago" class="col-sm-2 control-label">Pago</label>
-                <div class="col-lg-2">
-                  
-                  <div class="input-group">
-                  <input name="pago" class='tgl tgl-ios tgl_checkbox' 
-                    data-id="pago" 
-                    id='cb_pago' 
-                    type='checkbox' />
-                    <label class="tgl-btn" for="cb_pago"></label>
-                  </div>
-                </div>
-                
-                <label for="cancelado" class="col-sm-2 control-label">Arquivado</label>
-                <div class="col-lg-2">
-                  <div class="input-group">
-                    <input name="cancelado" class='tgl tgl-ios tgl_checkbox' 
-                    data-id="cancelado" 
-                    id='cb_cancelado' 
-                    type='checkbox' />
-                    <label class="tgl-btn" for="cb_cancelado"></label>
-                  </div>
-                </div>
-              </div>
-              <br/><br/><br/>//-->
               <div class="form-group">
                 <div class="col-md-11">
                   <input type="submit" name="submit" value="Salvar" class="btn btn-info pull-right">
@@ -310,6 +208,27 @@
 <!-- Page script -->
 <script>
 
+  function BuscaAdvogados(comarca)
+  {
+      $.ajax({
+          type: 'GET',
+          url: '<?= base_url("admin/advogado/get_advogados_por_comarca/"); ?>'+comarca,
+          success: function(response){
+            var data = JSON.parse(response);
+            html='';
+            for(var i=0; i<data.length; i++)
+            {
+              html += '<option value='+data[i].codigo_advogado+'>'+data[i].nome+'</option>';
+            }
+            $('#codigo_advogado').html(html);
+          }
+        });
+  }
+  $( document ).ready(function() {
+    BuscaAdvogados($('#codigo_comarca').val());
+  });
+  
+    
 
   $(function () {
 

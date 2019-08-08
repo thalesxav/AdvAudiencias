@@ -18,7 +18,7 @@ class Apuracao extends MY_Controller {
 			$this->session->unset_userdata('user_search_from');
 			$this->session->unset_userdata('user_search_to');
 			$data['apuracao_detail']=$this->apuracao_model->get_relatorio_por_advogado();
-			$data['advogados'] = $this->advogado->get_all();
+			$data['advogados'] = $this->advogado->get_all_distinct();
 			//var_dump($data['apuracao_detail']);exit;
             $data['view']='admin/apuracao/index';
             $this->load->view('layout',$data);

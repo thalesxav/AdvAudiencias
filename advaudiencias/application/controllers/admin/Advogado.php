@@ -35,8 +35,44 @@ class Advogado extends CI_Controller
 	//--------------------------------------------------
 	function list_data()
 	{
-		$data['info'] = $this->advogado->get_all();
+		$all = $this->advogado->get_all();
+		$new_array = array();
+		$array_codigo = array();
+		$i=-1;
+
+		foreach($all as $array)
+		{
+			$exite = false;
+			$estado = '';
+			foreach($array as $k => $v)
+			{
+				if($k == 'codigo_advogado')
+				{
+					if(in_array($v, $array_codigo))
+						$exite = true;
+					else
+						$array_codigo[] = $v;
+				}
+				else if ($k == 'estado')
+					$estado = $v;
+			}
+			if($exite)
+				$new_array[$i]['estado'] = $new_array[$i]['estado'] . ' | ' . $estado;
+			else
+			{
+				$new_array[] = $array;
+				$i++;
+			}
+		}
+		$data['info'] = $new_array;
 		$this->load->view('admin/advogado/list',$data);
+	}
+
+	//--------------------------------------------------
+	function get_advogados_por_comarca($codigo_comarca)
+	{
+		$result = $this->advogado->get_advogados_por_comarca($codigo_comarca);
+		echo json_encode($result);
 	}
 
 	//--------------------------------------------------
@@ -152,6 +188,11 @@ class Advogado extends CI_Controller
 				$data = $this->security->xss_clean($data);
 				$result = $this->advogado->edit($data, $id);
 
+				$array['codigo_advogado'] = $data['codigo'];
+				$array['comarcas'] = $this->input->post('comarcas');
+				$result = $this->advogado->delete_advogados_comarcas($array['codigo_advogado']);
+				$result = $this->advogado->add_advogado_comarcas($array);
+				
 				if($result){
 					$this->session->set_flashdata('msg', 'Advogado atualizada com sucesso!');
 					redirect(base_url('admin/advogado'));

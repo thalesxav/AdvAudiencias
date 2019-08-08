@@ -36,6 +36,18 @@ class Advogado_model extends CI_Model{
 		//return $query->row_array();
 	}
 
+	function get_advogados_por_comarca($codigo_comarca)
+	{
+		$this->db->select('advogados.codigo as codigo_advogado, advogados.nome');
+		$this->db->from('advogados');
+		$this->db->join('advogado_comarca', 'advogados.codigo = advogado_comarca.codigo_advogado ', 'Inner');
+		$this->db->join('comarcas', 'comarcas.codigo = advogado_comarca.codigo_comarca ', 'Inner');
+		$this->db->where('comarcas.codigo', $codigo_comarca);
+		$query=$this->db->get();
+		//echo $this->db->last_query();exit;
+		return $query->result_array();
+	}
+
 	//-----------------------------------------------------
 	function get_estados()
 	{
@@ -48,28 +60,24 @@ class Advogado_model extends CI_Model{
 	//-----------------------------------------------------
 	function get_all()
 	{
+		$this->db->select('advogados.codigo as codigo_advogado, advogados.*, comarcas.estado');
+		$this->db->join('advogado_comarca', 'advogados.codigo = advogado_comarca.codigo_advogado ', 'Inner');
+		$this->db->join('comarcas', 'comarcas.codigo = advogado_comarca.codigo_comarca ', 'Inner');
 		$this->db->from('advogados');
-		/*$this->db->join('ci_admin_roles','ci_admin_roles.admin_role_id=ci_admin.admin_role_id');
 		
-		if($this->session->userdata('filter_type')!='')
-			$this->db->where('ci_admin.admin_role_id',$this->session->userdata('filter_type'));
+		
+		$query = $this->db->get();
+		$module = array();
+		if ($query->num_rows() > 0) 
+		{
+			$module = $query->result_array();
+		}
+		return $module;
+	}
 
-		if($this->session->userdata('filter_status')!='')
-			$this->db->where('ci_admin.is_active',$this->session->userdata('filter_status'));
-
-		$filterData = $this->session->userdata('filter_keyword');
-		$where = "(
-			ci_admin_roles.admin_role_title like '%$filterData%' OR
-			ci_admin.firstname like '%$filterData%' OR
-			ci_admin.lastname like '%$filterData%' OR
-			ci_admin.email like '%$filterData%' OR
-			ci_admin.mobile_no like '%$filterData%' OR
-			ci_admin.username like '%$filterData%'
-		)";
-		$this->db->where($where);
-
-		$this->db->order_by('ci_admin.admin_id','desc');*/
-			//$this->db->limit($limit, $offset);
+	function get_all_distinct()
+	{
+		$this->db->from('advogados');	
 		$query = $this->db->get();
 		$module = array();
 		if ($query->num_rows() > 0) 
@@ -132,6 +140,12 @@ class Advogado_model extends CI_Model{
 		$this->db->where('codigo',$id);
 		$this->db->delete('advogados');
 	} 
+
+	function delete_advogados_comarcas($id)
+	{		
+		$this->db->where('codigo_advogado',$id);
+		$this->db->delete('advogado_comarca');
+	}
 
 }
 

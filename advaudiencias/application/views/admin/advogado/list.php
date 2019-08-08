@@ -11,6 +11,7 @@
             <tr>
                 <th width="50">Código</th>
                 <th>Nome</th>
+                <th>Comarcas</th>
                 <th>N. OAB</th>
                 <th>E-mail</th>
                 <th width="120">Ação</th>
@@ -25,6 +26,9 @@
                 <td>
                     <?=$row['nome']?>
                 </td> 
+                <td>
+                    <?=$row['estado']?>
+                </td>
                 <td>
 					<?=$row['numero_oab']?>
                 </td>

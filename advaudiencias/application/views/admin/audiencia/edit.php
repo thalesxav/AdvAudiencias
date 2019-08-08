@@ -80,7 +80,7 @@
               <div class="form-group">
                 <label for="codigo_comarca" class="col-sm-2 control-label">Comarca</label>
                 <div class="col-sm-9">
-                <select name="codigo_comarca" class="form-control select2" id="codigo_comarca" data-placeholder="Selecione" style="width: 100%;">
+                <select onchange="BuscaAdvogados(this.value)" name="codigo_comarca" class="form-control select2" id="codigo_comarca" data-placeholder="Selecione" style="width: 100%;">
                     <?php foreach($comarcas as $role): ?>
                       <option <?= $audiencia['codigo_comarca'] == $role['codigo'] ? "selected" : "" ?> value="<?= $role['codigo']; ?>"><?= $role['estado']; ?> - <?= $role['comarca']; ?></option>
                     <?php endforeach; ?>
@@ -92,7 +92,7 @@
                 <label for="banco" class="col-sm-2 control-label">Advogado</label>
                 <div class="col-sm-9">
                 <select name="codigo_advogado" class="form-control select2" id="codigo_advogado" data-placeholder="Selecione" style="width: 100%;">
-                    <?php foreach($advogados as $role): ?>
+                <?php foreach($advogados as $role): ?>
                       <option <?= $audiencia['codigo_advogado'] == $role['codigo'] ? "selected" : "" ?> value="<?= $role['codigo']; ?>"><?= $role['nome']; ?> | OAB(<?= $role['numero_oab']; ?>)</option>
                     <?php endforeach; ?>
                   </select>
@@ -216,6 +216,23 @@
 <!-- Page script -->
 <script>
 
+  function BuscaAdvogados(comarca)
+  {
+      $.ajax({
+          type: 'GET',
+          url: '<?= base_url("admin/advogado/get_advogados_por_comarca/"); ?>'+comarca,
+          success: function(response){
+            var data = JSON.parse(response);
+            html='';
+            for(var i=0; i<data.length; i++)
+            {
+              html += '<option value='+data[i].codigo_advogado+'>'+data[i].nome+'</option>';
+            }
+            $('#codigo_advogado').html(html);
+          }
+        });
+  }
+  
   $(function () {
 
     //Initialize Select2 Elements
