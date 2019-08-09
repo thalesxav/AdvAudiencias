@@ -31,6 +31,23 @@
 			//$array_retorno['cadastrada'] = $this->db->count(1, );
 			
 		}
+
+		public function get_count_status_audiencias_por_mes($minvalue, $maxvalue)
+		{
+			$array_retorno = array();
+			//Aatual
+			$this->db->select('status, count(*) as quantidade');
+			$this->db->from('audiencias');
+			//$this->db->where('tipo_audiencia IN (1,2,3,4,5,6,7)');
+			$this->db->where('data >=', $minvalue);
+			$this->db->where('data <=', $maxvalue);
+			$this->db->group_by("status");
+			$query=$this->db->get();
+			//echo $this->db->last_query();
+			//var_dump($query->result_array());exit;
+			return $query->result_array();
+			//$array_retorno['cadastrada'] = $this->db->count(1, );
+		}
 	}
 
 ?>

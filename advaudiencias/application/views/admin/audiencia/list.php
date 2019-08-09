@@ -66,7 +66,7 @@
                             <option <?= $row['status'] == '5' ? "selected" : "" ?> value="5">Enviado Correspondente</option>
                             <option <?= $row['status'] == '6' ? "selected" : "" ?> value="6">Ata Recebida</option>
                             <option <?= $row['status'] == '7' ? "selected" : "" ?> value="7">Pago</option>
-                            <option <?= $row['status'] == '8' ? "selected" : "" ?>value="8">Arquivado</option>
+                            <option <?= $row['status'] == '8' ? "selected" : "" ?> value="8">Arquivado</option>
                         </select>
                     <?php
                         /*if($row['status'] == '1')
