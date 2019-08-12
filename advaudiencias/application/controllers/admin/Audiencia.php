@@ -73,12 +73,12 @@ class Audiencia extends CI_Controller
             $this->form_validation->set_rules('hora', 'Hora', 'trim|required');
             $this->form_validation->set_rules('codigo_comarca', 'Comarca', 'trim|required');
             $this->form_validation->set_rules('codigo_advogado', 'Advogado', 'trim|required');
-            $this->form_validation->set_rules('processo', 'Processo', 'trim|required');
-            $this->form_validation->set_rules('grupo_cota', 'Grupo/Cota', 'trim|required');
-            $this->form_validation->set_rules('tipo_audiencia', 'Tipo Audiência', 'trim|required');
-            $this->form_validation->set_rules('parte_1', 'Parte 1', 'trim|required');
-            $this->form_validation->set_rules('parte_2', 'AgêncParte 2ia', 'trim|required');
-            $this->form_validation->set_rules('adv_escritorio', 'Advogado Escritório', 'trim|required');
+            //$this->form_validation->set_rules('processo', 'Processo', 'trim|required');
+            //$this->form_validation->set_rules('grupo_cota', 'Grupo/Cota', 'trim|required');
+            //$this->form_validation->set_rules('tipo_audiencia', 'Tipo Audiência', 'trim|required');
+            //$this->form_validation->set_rules('parte_1', 'Parte 1', 'trim|required');
+            //$this->form_validation->set_rules('parte_2', 'Parte 2', 'trim|required');
+            //$this->form_validation->set_rules('adv_escritorio', 'Advogado Escritório', 'trim|required');
             
             $data['codigo'] = $this->audiencia->get_last_id();
             $data['comarcas'] = $this->comarca->get_all();
@@ -93,7 +93,7 @@ class Audiencia extends CI_Controller
 
                 $data = array(
                     'codigo' => $this->input->post('codigo'),
-                    'data' => date_format($date,"Y/m/d"),
+                    'data' => date_format($date,"Y-d-m"),
                     'hora' => $this->input->post('hora'),
                     'codigo_comarca' => $this->input->post('codigo_comarca'),
                     'codigo_advogado' => $this->input->post('codigo_advogado'),
@@ -124,10 +124,10 @@ class Audiencia extends CI_Controller
             $data['view']='admin/audiencia/add';
             $this->load->view('layout',$data);
         }
-	}
+    }
 
 	//--------------------------------------------------
-	function edit($id="")
+	function edit($id="", $copiar="")
 	{
 		$this->rbac->check_operation_access(); // check opration permission
 
@@ -138,12 +138,12 @@ class Audiencia extends CI_Controller
             $this->form_validation->set_rules('hora', 'Hora', 'trim|required');
             $this->form_validation->set_rules('codigo_comarca', 'Comarca', 'trim|required');
             $this->form_validation->set_rules('codigo_advogado', 'Advogado', 'trim|required');
-            $this->form_validation->set_rules('processo', 'Processo', 'trim|required');
+            /*$this->form_validation->set_rules('processo', 'Processo', 'trim|required');
             $this->form_validation->set_rules('grupo_cota', 'Grupo/Cota', 'trim|required');
             $this->form_validation->set_rules('tipo_audiencia', 'Tipo Audiência', 'trim|required');
             $this->form_validation->set_rules('parte_1', 'Parte 1', 'trim|required');
             $this->form_validation->set_rules('parte_2', 'AgêncParte 2ia', 'trim|required');
-            $this->form_validation->set_rules('adv_escritorio', 'Advogado Escritório', 'trim|required');
+            $this->form_validation->set_rules('adv_escritorio', 'Advogado Escritório', 'trim|required');*/
 
 			if ($this->form_validation->run() == FALSE) {
                 $data['audiencia'] = $this->audiencia->get_audiencia_by_id($id)[0];
@@ -158,7 +158,7 @@ class Audiencia extends CI_Controller
 
                 $data = array(
                     'codigo' => $this->input->post('codigo'),
-                    'data' => date_format($date,"Y/m/d"),
+                    'data' => date_format($date,"Y-d-m"),
                     'hora' => $this->input->post('hora'),
                     'codigo_comarca' => $this->input->post('codigo_comarca'),
                     'codigo_advogado' => $this->input->post('codigo_advogado'),
@@ -185,11 +185,15 @@ class Audiencia extends CI_Controller
 			redirect('admin/audiencia');
 		}
 		else{
+
             $data['audiencia'] = $this->audiencia->get_audiencia_by_id($id)[0];
             $data['comarcas'] = $this->comarca->get_all();
             $data['advogados'] = $this->advogado->get_all();
             //var_dump($data['advogados']);exit;
-			$data['comarcas'] = $this->comarca->get_all();
+            $data['comarcas'] = $this->comarca->get_all();
+            $data['copiar'] = $copiar;
+            if($copiar=='copiar')
+                $data['proximo_codigo'] = $this->audiencia->proximo_codigo();
 			$data['view'] = 'admin/audiencia/edit';
 			$this->load->view('layout',$data);
 		}

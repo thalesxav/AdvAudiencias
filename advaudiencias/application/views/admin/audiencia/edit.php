@@ -43,12 +43,12 @@
               </div>
             <?php endif; ?>
            
-            <?php echo form_open(base_url('admin/audiencia/edit/'.$audiencia['codigo'] ), 'class="form-horizontal"' );  ?> 
+            <?php echo form_open(base_url('admin/audiencia/' . ($copiar == 'copiar' ? 'add': 'edit/'.$audiencia['codigo']) ), 'class="form-horizontal"' );  ?> 
               <div class="form-group">
                 <label for="codigo" class="col-sm-2 control-label">Código</label>
 
                 <div class="col-sm-9">
-                  <input readonly value="<?= $audiencia['codigo'] ?>" type="text" name="codigo" class="form-control" id="codigo" placeholder="">
+                  <input readonly value="<?= ($copiar == 'copiar' ? $proximo_codigo : $audiencia['codigo']) ?>" type="text" name="codigo" class="form-control" id="codigo" placeholder="">
                 </div>
               </div>
 

@@ -58,6 +58,13 @@ class Audiencia_model extends CI_Model{
 		return $module;
 	}
 
+	public function proximo_codigo()
+	{
+		$this->db->select_max('codigo');
+     	$result= $this->db->get('audiencias')->row_array();
+     	return $result['codigo'] + 1;
+	}
+
 		//-----------------------------------------------------
 	public function add_audiencia($data){
 		$this->db->insert('audiencias', $data);

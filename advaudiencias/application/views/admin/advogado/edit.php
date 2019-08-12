@@ -247,13 +247,36 @@
 
     $("#cpf").inputmask("999.999.999-99");
     $("#telefone").inputmask("(99)99999-9999");
-    $("input[name='vlr_justica_comum']").maskMoney();
-    $("input[name='vlr_adv_preposto']").maskMoney();
-    $("input[name='vlr_preposto']").maskMoney();
-    $("input[name='vlr_procon']").maskMoney();
-    $("input[name='vlr_trabalhista']").maskMoney();
-    $("input[name='vlr_outros']").maskMoney();
+    $("input[name='vlr_justica_comum']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_adv_preposto']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_preposto']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_procon']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_trabalhista']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_outros']").maskMoney({thousands:'.', decimal:','});
   });
+
+  
+  $( document ).ready(function() {
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    //Datemask2 mm/dd/yyyy
+    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    $("#cpf").inputmask("999.999.999-99");
+    $("#telefone").inputmask("(99)99999-9999");
+    $("input[name='vlr_justica_comum']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_justica_comum']").focus();
+    $("input[name='vlr_adv_preposto']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_adv_preposto']").focus();
+    $("input[name='vlr_preposto']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_preposto']").focus();
+    $("input[name='vlr_procon']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_procon']").focus();
+    $("input[name='vlr_trabalhista']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_trabalhista']").focus();
+    $("input[name='vlr_outros']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_outros']").focus();
+    $("#codigo").focus();
+});
 </script>
 
 <style>

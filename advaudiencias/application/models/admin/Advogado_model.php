@@ -124,7 +124,16 @@ class Advogado_model extends CI_Model{
 	//---------------------------------------------------
 	// Edit Admin Record
 	public function edit($data, $id){
+		
 		$this->db->where('codigo', $id);
+
+		$data['vlr_justica_comum'] = str_replace('.','', $data['vlr_justica_comum']);
+		$data['vlr_adv_preposto'] = str_replace('.','', $data['vlr_adv_preposto']);
+		$data['vlr_preposto'] = str_replace('.','', $data['vlr_preposto']);
+		$data['vlr_procon'] = str_replace('.','', $data['vlr_procon']);
+		$data['vlr_trabalhista'] = str_replace('.','', $data['vlr_trabalhista']);
+		$data['vlr_outros'] = str_replace('.','', $data['vlr_outros']);
+
 		$this->db->update('advogados', $data);
 		
 		//echo $this->db->last_query();exit;
@@ -134,11 +143,23 @@ class Advogado_model extends CI_Model{
 		//-----------------------------------------------------
 	function delete($id)
 	{		
-		$this->db->where('codigo_advogado',$id);
-		$this->db->delete('advogado_comarca');
+		//$this->db->where('codigo_advogado',$id);
+		//$this->db->delete('advogado_comarca');
 
-		$this->db->where('codigo',$id);
-		$this->db->delete('advogados');
+		$this->db->from('advogado_comarca');
+		$this->db->where('codigo_advogado',$id);
+		$query=$this->db->get();
+
+		if ($query->num_rows() == 0)
+		{
+			$this->db->where('codigo',$id);
+			$this->db->delete('advogados');
+			return true;
+		}
+		return false;
+
+		//$this->db->where('codigo',$id);
+		//$this->db->delete('advogados');
 	} 
 
 	function delete_advogados_comarcas($id)

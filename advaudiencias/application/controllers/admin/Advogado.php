@@ -84,14 +84,14 @@ class Advogado extends CI_Controller
 
 				$this->form_validation->set_rules('codigo', 'Código', 'trim|required');
 				$this->form_validation->set_rules('nome', 'Nome', 'trim|required');
-				$this->form_validation->set_rules('numero_oab', 'Num. OAB', 'trim|required');
-				$this->form_validation->set_rules('cpf', 'CPF', 'trim|required');
-				$this->form_validation->set_rules('email', 'E-mail', 'trim|valid_email|required');
-				$this->form_validation->set_rules('telefone', 'Telefone', 'trim|required');
+				//$this->form_validation->set_rules('numero_oab', 'Num. OAB', 'trim|required');
+				//$this->form_validation->set_rules('cpf', 'CPF', 'trim|required');
+				//$this->form_validation->set_rules('email', 'E-mail', 'trim|valid_email|required');
+				//$this->form_validation->set_rules('telefone', 'Telefone', 'trim|required');
 				$this->form_validation->set_rules('banco', 'Banco', 'trim|required');
 				$this->form_validation->set_rules('conta', 'Conta', 'trim|required');
 				$this->form_validation->set_rules('agencia', 'Agência', 'trim|required');
-				//$this->form_validation->set_rules('comarcas', 'Comarcas', 'trim|required');
+				$this->form_validation->set_rules('comarcas[]', 'Comarcas', 'trim|required');
 				
                 $data['codigo'] = $this->advogado->get_last_id();
 
@@ -150,13 +150,14 @@ class Advogado extends CI_Controller
 
 			$this->form_validation->set_rules('codigo', 'Código', 'trim|required');
 			$this->form_validation->set_rules('nome', 'Nome', 'trim|required');
-			$this->form_validation->set_rules('numero_oab', 'Num. OAB', 'trim|required');
-			$this->form_validation->set_rules('cpf', 'CPF', 'trim|required');
-			$this->form_validation->set_rules('email', 'E-mail', 'trim|valid_email|required');
-			$this->form_validation->set_rules('telefone', 'Telefone', 'trim|required');
+			//$this->form_validation->set_rules('numero_oab', 'Num. OAB', 'trim|required');
+			//$this->form_validation->set_rules('cpf', 'CPF', 'trim|required');
+			//$this->form_validation->set_rules('email', 'E-mail', 'trim|valid_email|required');
+			//$this->form_validation->set_rules('telefone', 'Telefone', 'trim|required');
 			$this->form_validation->set_rules('banco', 'Banco', 'trim|required');
 			$this->form_validation->set_rules('conta', 'Conta', 'trim|required');
 			$this->form_validation->set_rules('agencia', 'Agência', 'trim|required');
+			$this->form_validation->set_rules('comarcas[]', 'Comarcas', 'trim|required');
 
 			if ($this->form_validation->run() == FALSE) {
 				$data['advogado'] = $this->advogado->get_advogado_by_id($id);
@@ -218,9 +219,19 @@ class Advogado extends CI_Controller
 	{
 		$this->rbac->check_operation_access(); // check opration permission
 
-		$this->advogado->delete($id);
-		$this->session->set_flashdata('success','Advogado deletada com sucesso.');
-		redirect('admin/advogado');
+		if($this->advogado->delete($id))
+		{
+			$this->session->set_flashdata('success','Advogado deletado com sucesso.');
+			redirect('admin/advogado');
+		}
+		else{
+			$this->session->set_flashdata('error','Não foi possível deletar o Advogado, pois ele se encontra associado a uma Audiência.');
+			$data['view'] = 'admin/advogado/index';
+			$data['msg'] = 'Não foi possível deletar o Advogado, pois ele se encontra associado a uma Audiência.';
+			$this->load->view('layout', $data);
+			//$this->session->set_flashdata('msg', 'Comarca atualizada com sucesso!');
+			//redirect(base_url('admin/comarca'));
+		}
 	}
 
 }

@@ -1,3 +1,9 @@
+<?php 
+
+$array_request_comarcas = set_value('comarcas'); 
+
+?>
+
 <!-- daterange picker -->
 <link rel="stylesheet" href="<?= base_url() ?>public/plugins/daterangepicker/daterangepicker.css">
   <!-- bootstrap datepicker -->
@@ -56,7 +62,7 @@
                 <label for="nome" class="col-sm-2 control-label">Nome</label>
 
                 <div class="col-sm-9">
-                  <input value="<?= set_value('noem'); ?>" type="text" name="nome" class="form-control" id="nome" placeholder="">
+                  <input value="<?= set_value('nome'); ?>" type="text" name="nome" class="form-control" id="nome" placeholder="">
                 </div>
               </div>
 
@@ -131,7 +137,7 @@
                 <div class="col-sm-9">
                   <select name="comarcas[]" class="form-control select2" id="comarcas" multiple="multiple" data-placeholder="Selecione" style="width: 100%;">
                     <?php foreach($comarcas as $role): ?>
-                      <option value="<?= $role['codigo']; ?>"><?= $role['estado']; ?> - <?= $role['comarca']; ?></option>
+                      <option <?= in_array($role['codigo'], $array_request_comarcas) ? 'selected' : '' ?>  value="<?= $role['codigo']; ?>"><?= $role['estado']; ?> - <?= $role['comarca']; ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -237,13 +243,37 @@
 
     $("#cpf").inputmask("999.999.999-99");
     $("#telefone").inputmask("(99)99999-9999");
-    $("input[name='vlr_justica_comum']").maskMoney();
-    $("input[name='vlr_adv_preposto']").maskMoney();
-    $("input[name='vlr_preposto']").maskMoney();
-    $("input[name='vlr_procon']").maskMoney();
-    $("input[name='vlr_trabalhista']").maskMoney();
-    $("input[name='vlr_outros']").maskMoney();
+    $("input[name='vlr_justica_comum']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_adv_preposto']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_preposto']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_procon']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_trabalhista']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_outros']").maskMoney({thousands:'.', decimal:','});
   });
+
+  
+  $( document ).ready(function() {
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    //Datemask2 mm/dd/yyyy
+    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    $("#cpf").inputmask("999.999.999-99");
+    $("#telefone").inputmask("(99)99999-9999");
+    $("input[name='vlr_justica_comum']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_justica_comum']").focus();
+    $("input[name='vlr_adv_preposto']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_adv_preposto']").focus();
+    $("input[name='vlr_preposto']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_preposto']").focus();
+    $("input[name='vlr_procon']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_procon']").focus();
+    $("input[name='vlr_trabalhista']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_trabalhista']").focus();
+    $("input[name='vlr_outros']").maskMoney({thousands:'.', decimal:','});
+    $("input[name='vlr_outros']").focus();
+    $("#codigo").focus();
+});
+
 </script>
 
 

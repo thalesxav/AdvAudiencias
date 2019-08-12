@@ -79,8 +79,17 @@ class Comarca_model extends CI_Model{
 		//-----------------------------------------------------
 	function delete($id)
 	{		
-		$this->db->where('codigo',$id);
-		$this->db->delete('comarcas');
+		$this->db->from('advogado_comarca');
+		$this->db->where('codigo_comarca',$id);
+		$query=$this->db->get();
+
+		if ($query->num_rows() == 0)
+		{
+			$this->db->where('codigo',$id);
+			$this->db->delete('comarcas');
+			return true;
+		}
+		return false;
 	} 
 
 }

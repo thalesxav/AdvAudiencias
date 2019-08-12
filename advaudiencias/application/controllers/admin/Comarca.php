@@ -17,6 +17,9 @@ class Comarca extends CI_Controller
 		$this->session->set_userdata('filter_type',$type);
 		$this->session->set_userdata('filter_keyword','');
 		$this->session->set_userdata('filter_status','');
+		$this->session->set_userdata('msg','');
+		$this->session->unset_userdata('msg');
+		$this->session->set_flashdata('msg', '');
 
 		$data['view']='admin/comarca/index';
 		$this->load->view('layout',$data);
@@ -123,9 +126,19 @@ class Comarca extends CI_Controller
 	{
 		$this->rbac->check_operation_access(); // check opration permission
 
-		$this->comarca->delete($id);
-		$this->session->set_flashdata('success','Comarca deletada com sucesso.');
-		redirect('admin/comarca');
+		if($this->comarca->delete($id))
+		{
+			$this->session->set_flashdata('success','Comarca deletada com sucesso.');
+			redirect('admin/comarca');
+		}
+		else{
+			$this->session->set_flashdata('error','Não foi possível deletar a Comarca, pois a mesma se encontra associada a uma Audiência.');
+			$data['view'] = 'admin/comarca/index';
+			$data['msg'] = 'Não foi possível deletar a Comarca, pois a mesma se encontra associada a uma Audiência.';
+			$this->load->view('layout', $data);
+			//$this->session->set_flashdata('msg', 'Comarca atualizada com sucesso!');
+			//redirect(base_url('admin/comarca'));
+		}
 	}
 
 }
